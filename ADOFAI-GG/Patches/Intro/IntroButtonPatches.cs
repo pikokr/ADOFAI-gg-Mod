@@ -3,6 +3,7 @@ using HarmonyLib;
 using MelonLoader;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
 namespace ADOFAI_GG.Patches.Intro
@@ -17,9 +18,16 @@ namespace ADOFAI_GG.Patches.Intro
                 var parent = GameObject.Find("outer ring");
                 var f = parent.transform.Find("FloorCalibration").gameObject;
                 var obj = Object.Instantiate(f, parent.transform);
+                obj.name = "FloorAdofaiGG";
                 var floor = obj.GetComponent<scrFloor>();
                 obj.transform.position = new Vector3(2, 3);
                 floor.levelnumber = -12345678;
+                var textParent = GameObject.Find("Canvas World");
+                var textObj = Object.Instantiate(textParent.transform.Find("Calibration"), textParent.transform);
+                textObj.position = new Vector3(5.4969f, 3.001f, 72.32f);
+                textObj.name = "AdofaiGG";
+                textObj.GetComponent<scrTextChanger>().desktopText = "ADOFAI.GG";
+                textObj.GetComponent<Text>().alignment = TextAnchor.MiddleLeft;
             }
         }
 
@@ -30,15 +38,8 @@ namespace ADOFAI_GG.Patches.Intro
             {
                 if (portalDestination == -12345678)
                 {
-                    try
-                    {
-                        SceneManager.LoadScene("ADOFAIGG_NewCLS");
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.LogError(e);
-                        throw;
-                    }
+                    SceneManager.LoadScene("ADOFAIGG_NewCLS");
+
                     return false;
                 }
 
