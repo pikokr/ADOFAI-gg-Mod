@@ -17,7 +17,6 @@ namespace ADOFAI_GG.Utils
         {
             SceneManager.sceneLoaded += (scn, mode) =>
             {
-                MelonLogger.Msg($"{scn.name} ${scene}");
                 if (scn.name == scene)
                 {
                     try
