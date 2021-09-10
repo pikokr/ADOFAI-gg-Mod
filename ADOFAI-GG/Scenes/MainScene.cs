@@ -1,5 +1,6 @@
 using MelonLoader;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace ADOFAI_GG.Scenes
@@ -13,6 +14,11 @@ namespace ADOFAI_GG.Scenes
             levelsBtn.onClick.AddListener(() =>
             {
                 MelonLogger.Msg("levels");
+            });
+            var exitButton = t.GetChild(2).GetChild(0).gameObject.GetComponent<Button>();
+            exitButton.onClick.AddListener(() =>
+            {
+                SceneManager.LoadScene("scnNewIntro");
             });
         }
     }
