@@ -381,7 +381,11 @@
         <Compile Include="Assets.cs" />
         <Compile Include="Patches\Intro\IntroButtonPatches.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <EmbeddedResource Include="Resources\assets.bundle" />
+        <Compile Include="Scenes\MainScene.cs" />
+        <Compile Include="Utils\SceneEvents.cs" />
+    </ItemGroup>
+    <ItemGroup Label="Assets">
+        <EmbeddedResource Include="Resources/assets.bundle" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

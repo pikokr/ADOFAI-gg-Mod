@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 978709228
+CRC: 543897149
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: ce1181167e9510d4aca838690af4e258
+    Hash: 49648ea98468054c8dbb258f950b5dba
   TypeTreeHash:
     serializedVersion: 2
-    Hash: f25b2bc8ed95138a4d04918f512445f6
+    Hash: 0ada18ea07eeb6dec518baa26f454886
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -30,7 +30,11 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
 - Class: 114
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
 - Class: 114
@@ -43,6 +47,8 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 196
   Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
 - Class: 222
   Script: {instanceID: 0}
 - Class: 223
@@ -50,5 +56,5 @@ ClassTypes:
 - Class: 224
   Script: {instanceID: 0}
 Assets:
-- Assets/Scenes/ADOFAIGG_NewCLS.unity
+- Assets/Scenes/ADOFAIGG_MAIN.unity
 Dependencies: []

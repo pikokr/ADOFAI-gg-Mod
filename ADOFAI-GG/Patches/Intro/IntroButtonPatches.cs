@@ -38,7 +38,7 @@ namespace ADOFAI_GG.Patches.Intro
             {
                 if (portalDestination == -12345678)
                 {
-                    SceneManager.LoadScene("ADOFAIGG_NewCLS");
+                    SceneManager.LoadScene("ADOFAIGG_MAIN");
 
                     return false;
                 }

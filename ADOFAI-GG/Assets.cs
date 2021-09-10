@@ -1,4 +1,7 @@
+using System;
 using System.IO;
+using System.Reflection;
+using MelonLoader;
 using UnityEngine;
 
 namespace ADOFAI_GG
@@ -6,14 +9,14 @@ namespace ADOFAI_GG
     public class Assets
     {
         public static AssetBundle Bundle;
-        
+
         public static void Init()
         {
             Bundle = AssetBundle.LoadFromMemory(ReadFully(
                 typeof(AdofaiGG).Assembly.GetManifestResourceStream("ADOFAI_GG.Resources.assets.bundle")));
             Bundle.GetAllScenePaths();
         }
-        
+
         private static byte[] ReadFully(Stream input)
         {
             using (var ms = new MemoryStream())
