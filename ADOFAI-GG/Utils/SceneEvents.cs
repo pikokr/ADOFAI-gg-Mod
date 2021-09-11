@@ -13,7 +13,7 @@ namespace ADOFAI_GG.Utils
             OnLoadScene("ADOFAIGG_MAIN", MainScene.init);
         }
         
-        internal static void OnLoadScene(string scene, Action<GameObject> action)
+        internal static void OnLoadScene(string scene, Action<Scene, GameObject> action)
         {
             SceneManager.sceneLoaded += (scn, mode) =>
             {
@@ -21,7 +21,7 @@ namespace ADOFAI_GG.Utils
                 {
                     try
                     {
-                        action(GameObject.Find("Root"));
+                        action(scn, GameObject.Find("Root"));
                     }
                     catch (Exception e)
                     {

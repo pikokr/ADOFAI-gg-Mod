@@ -5,9 +5,11 @@ using UnityEngine.UI;
 
 namespace ADOFAI_GG.Scenes
 {
-    public class MainScene
+    public class MainScene: MonoBehaviour
     {
-        public static void init(GameObject root)
+        private GameObject root;
+
+        private void Start()
         {
             var t = root.transform;
             var levelsBtn = t.GetChild(1).GetChild(0).gameObject.GetComponent<Button>();
@@ -20,6 +22,12 @@ namespace ADOFAI_GG.Scenes
             {
                 SceneManager.LoadScene("scnNewIntro");
             });
+        }
+
+        public static void init(Scene scn, GameObject root)
+        {
+            var obj = new GameObject("MainScene");
+            obj.GetOrAddComponent<MainScene>().root = root;
         }
     }
 }
