@@ -14,7 +14,8 @@ namespace ADOFAI_GG
         {
             Bundle = AssetBundle.LoadFromMemory(ReadFully(
                 typeof(AdofaiGG).Assembly.GetManifestResourceStream("ADOFAI_GG.Resources.assets.bundle")));
-            Bundle.GetAllScenePaths();
+            AssetBundle.LoadFromMemory(ReadFully(
+                typeof(AdofaiGG).Assembly.GetManifestResourceStream("ADOFAI_GG.Resources.scenes.bundle")));
         }
 
         private static byte[] ReadFully(Stream input)

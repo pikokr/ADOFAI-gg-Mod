@@ -1,63 +1,50 @@
 ManifestFileVersion: 0
-CRC: 650425277
+CRC: 1523210219
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 2bbac3b2d529f7b99f6b9bac4b0e85b3
+    Hash: ab0c94aed61026f4990f4dd0acfe4aa5
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 3c022fc33eb7616bac6398b362174c04
+    Hash: 9e6ad29cbd2df8fbe1a15315db0e51ab
 HashAppended: 0
 ClassTypes:
-- Class: 1
-  Script: {instanceID: 0}
-- Class: 4
-  Script: {instanceID: 0}
-- Class: 20
-  Script: {instanceID: 0}
-- Class: 21
-  Script: {instanceID: 0}
 - Class: 28
-  Script: {instanceID: 0}
-- Class: 48
-  Script: {instanceID: 0}
-- Class: 81
-  Script: {instanceID: 0}
-- Class: 104
-  Script: {instanceID: 0}
-- Class: 114
-  Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-- Class: 115
-  Script: {instanceID: 0}
-- Class: 128
-  Script: {instanceID: 0}
-- Class: 157
-  Script: {instanceID: 0}
-- Class: 196
   Script: {instanceID: 0}
 - Class: 213
   Script: {instanceID: 0}
-- Class: 222
-  Script: {instanceID: 0}
-- Class: 223
-  Script: {instanceID: 0}
-- Class: 224
-  Script: {instanceID: 0}
 Assets:
-- Assets/Scenes/ADOFAIGG_MAIN.unity
-- Assets/Scenes/ADOFAIGG_LEVELS.unity
+- Assets/Images/difficultyIcons/-2.png
+- Assets/Images/difficultyIcons/7.png
+- Assets/Images/difficultyIcons/11.png
+- Assets/Images/difficultyIcons/18.5.png
+- Assets/Images/difficultyIcons/1.png
+- Assets/Images/difficultyIcons/19.png
+- Assets/Images/icons/outline_favorite_white_24dp.png
+- Assets/Images/difficultyIcons/19.5.png
+- Assets/Images/difficultyIcons/2.png
+- Assets/Images/logo.png
+- Assets/Images/difficultyIcons/16.png
+- Assets/Images/difficultyIcons/15.png
+- Assets/Images/difficultyIcons/6.png
+- Assets/Images/difficultyIcons/18.png
+- Assets/Images/background.png
+- Assets/Images/icons/outline_logout_white_24dp.png
+- Assets/Images/difficultyIcons/20.png
+- Assets/Images/difficultyIcons/14.png
+- Assets/Images/difficultyIcons/8.png
+- Assets/Images/difficultyIcons/13.png
+- Assets/Images/components/levelIcon.png
+- Assets/Images/difficultyIcons/9.png
+- Assets/Images/difficultyIcons/10.png
+- Assets/Images/difficultyIcons/17.png
+- Assets/Images/difficultyIcons/3.png
+- Assets/Images/difficultyIcons/20.5.png
+- Assets/Images/icons/outline_navigate_next_white_24dp.png
+- Assets/Images/difficultyIcons/21.png
+- Assets/Images/difficultyIcons/4.png
+- Assets/Images/icons/outline_chat_white_24dp.png
+- Assets/Images/icons/outline_navigate_before_white_24dp.png
+- Assets/Images/difficultyIcons/12.png
+- Assets/Images/difficultyIcons/5.png
 Dependencies: []

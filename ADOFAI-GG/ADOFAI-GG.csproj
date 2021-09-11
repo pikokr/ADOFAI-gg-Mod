@@ -379,6 +379,7 @@
     <ItemGroup>
         <Compile Include="AdofaiGG.cs" />
         <Compile Include="Assets.cs" />
+        <Compile Include="Levels\Level.cs" />
         <Compile Include="Patches\Intro\IntroButtonPatches.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="Scenes\LevelsScene.cs" />
@@ -388,6 +389,7 @@
     </ItemGroup>
     <ItemGroup Label="Assets">
         <EmbeddedResource Include="Resources/assets.bundle" />
+        <EmbeddedResource Include="Resources/scenes.bundle" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
