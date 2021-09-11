@@ -39,7 +39,7 @@ namespace ADOFAI_GG.Patches.Intro
                 if (portalDestination == -12345678)
                 {
                     GCS.sceneToLoad = "ADOFAIGG_MAIN";
-                    scrController.instance.StartLoadingScene(WipeDirection.StartsFromLeft);
+                    scrController.instance.StartLoadingScene(WipeDirection.StartsFromRight);
 
                     return false;
                 }
