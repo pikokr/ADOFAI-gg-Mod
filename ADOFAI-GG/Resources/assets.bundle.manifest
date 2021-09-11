@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1523210219
+CRC: 1353457948
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: ab0c94aed61026f4990f4dd0acfe4aa5
+    Hash: 515cfaf9b3331480923a83b17bd909bf
   TypeTreeHash:
     serializedVersion: 2
     Hash: 9e6ad29cbd2df8fbe1a15315db0e51ab
@@ -32,6 +32,7 @@ Assets:
 - Assets/Images/icons/outline_logout_white_24dp.png
 - Assets/Images/difficultyIcons/20.png
 - Assets/Images/difficultyIcons/14.png
+- Assets/Images/icons/outline_search_white_24dp.png
 - Assets/Images/difficultyIcons/8.png
 - Assets/Images/difficultyIcons/13.png
 - Assets/Images/components/levelIcon.png
