@@ -31,6 +31,19 @@ namespace ADOFAI_GG.Patches.Intro
             }
         }
 
+        [HarmonyPatch(typeof(scnLevelSelect), "Update")]
+        private static class ScnLevelSelectUpdate
+        {
+            private static void Postfix()
+            {
+                if (RDEditorUtils.CheckForKeyCombo(true, true, KeyCode.A))
+                {
+                    GCS.sceneToLoad = "ADOFAIGG_MAIN";
+                    scrController.instance.StartLoadingScene(WipeDirection.StartsFromRight);
+                }
+            }
+        }
+
         [HarmonyPatch(typeof(scrController), "OnLandOnPortal")]
         private static class ScrControllerPortalTravelAction
         {
