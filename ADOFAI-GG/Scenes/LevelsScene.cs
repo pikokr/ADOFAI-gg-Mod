@@ -9,7 +9,7 @@ namespace ADOFAI_GG.Scenes
         private void Start()
         {
             var t = root.transform;
-            var exitButton = t.GetChild(0).GetChild(0).gameObject.GetComponent<Button>();
+            var exitButton = t.GetChild(1).GetChild(0).gameObject.GetComponent<Button>();
             exitButton.onClick.AddListener(() =>
             {
                 SceneManager.LoadScene("ADOFAIGG_MAIN");
