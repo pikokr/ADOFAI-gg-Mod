@@ -1,8 +1,5 @@
-using System;
 using HarmonyLib;
-using MelonLoader;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
