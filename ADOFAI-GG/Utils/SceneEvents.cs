@@ -11,6 +11,7 @@ namespace ADOFAI_GG.Utils
         internal static void Init()
         {
             OnLoadScene("ADOFAIGG_MAIN", MainScene.init);
+            OnLoadScene("ADOFAIGG_LEVELS", LevelsScene.init);
         }
         
         internal static void OnLoadScene(string scene, Action<Scene, GameObject> action)

@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1634118366
+CRC: 3646872136
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: ad3ff7b2c657c14f93003094da1f514a
+    Hash: 1245157912e4597f06b6bc015be13096
   TypeTreeHash:
     serializedVersion: 2
     Hash: 0ada18ea07eeb6dec518baa26f454886
@@ -57,4 +57,5 @@ ClassTypes:
   Script: {instanceID: 0}
 Assets:
 - Assets/Scenes/ADOFAIGG_MAIN.unity
+- Assets/Scenes/ADOFAIGG_LEVELS.unity
 Dependencies: []

@@ -5,17 +5,15 @@ using UnityEngine.UI;
 
 namespace ADOFAI_GG.Scenes
 {
-    public class MainScene: MonoBehaviour
+    public class MainScene: SceneBase
     {
-        private GameObject root;
-
         private void Start()
         {
             var t = root.transform;
             var levelsBtn = t.GetChild(1).GetChild(0).gameObject.GetComponent<Button>();
             levelsBtn.onClick.AddListener(() =>
             {
-                MelonLogger.Msg("levels");
+                SceneManager.LoadScene("ADOFAIGG_LEVELS");
             });
             var exitButton = t.GetChild(2).GetChild(0).gameObject.GetComponent<Button>();
             exitButton.onClick.AddListener(() =>
