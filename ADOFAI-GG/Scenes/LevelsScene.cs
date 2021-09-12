@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Web;
 using ADOFAI_GG.Levels;
 using MelonLoader;
 using MelonLoader.TinyJSON;
@@ -30,26 +31,22 @@ namespace ADOFAI_GG.Scenes
             var serachButton = buttons.GetChild(1).gameObject.GetComponent<Button>();
             exitButton.onClick.AddListener(() => { SceneManager.LoadScene("ADOFAIGG_MAIN"); });
 
-            var search = content.GetChild(2);
+            var searchT = content.GetChild(2);
 
-            var searchOverlay = search.GetChild(0);
+            var searchOverlay = searchT.GetChild(0);
 
-            var searchInput = search.GetChild(1).GetComponent<InputField>();
-            
+            var searchInput = searchT.GetChild(1).GetComponent<InputField>();
+
             searchInput.onEndEdit.AddListener(query =>
             {
-                this.serach = query;
+                this.search = query;
+                searchT.gameObject.SetActive(false);
+                StartCoroutine(fetch());
             });
-            
-            searchOverlay.GetComponent<Button>().onClick.AddListener(() =>
-            {
-                search.gameObject.SetActive(false);
-            });
-            
-            serachButton.onClick.AddListener(() =>
-            {
-                search.gameObject.SetActive(true);
-            });
+
+            searchOverlay.GetComponent<Button>().onClick.AddListener(() => { searchT.gameObject.SetActive(false); });
+
+            serachButton.onClick.AddListener(() => { searchT.gameObject.SetActive(true); });
 
             var pagination = content.GetChild(1);
 
@@ -77,10 +74,16 @@ namespace ADOFAI_GG.Scenes
             StartCoroutine(fetch());
         }
 
-        private string serach = "";
+        private string search = String.Empty;
         private int page;
         private double count;
-        private int maxPage => (int)Math.Ceiling(count / 5);
+        private int maxPage => ((int)Math.Ceiling(count / 5));
+
+        private void Update()
+        {
+            var searchButton = root.transform.GetChild(0).GetChild(1).GetChild(1).GetChild(1).GetComponent<Image>();
+            searchButton.color = search.Length == 0 ? Color.white : new Color(0, 125, 255, 255);
+        }
 
         private IEnumerator fetch()
         {
@@ -95,11 +98,16 @@ namespace ADOFAI_GG.Scenes
 
             content.GetChild(0).GetChild(1).gameObject.SetActive(true);
 
-            var uri = new Uri($"https://api.adofai.gg:9200/api/v1/levels?offset={5 * page}&amount=5");
-            
-            
-            
-            var www = new UnityWebRequest(uri);
+            var query = HttpUtility.ParseQueryString(String.Empty);
+
+            query.Add("offset", $"{5 * page}");
+            query.Add("amount", "5");
+            query.Add("queryTitle", search);
+            query.Add("queryCreator", search);
+            query.Add("queryArtist", search);
+            query.Add("sort", "RECENT_DESC");
+
+            var www = new UnityWebRequest("https://api.adofai.gg:9200/api/v1/levels?" + query);
 
             www.downloadHandler = new DownloadHandlerBuffer();
 
@@ -129,8 +137,12 @@ namespace ADOFAI_GG.Scenes
 
             setLevels(levels);
 
+            Debug.Log(page);
+            Debug.Log(maxPage);
+            Debug.Log(count);
+
             prevButton.interactable = page != 0;
-            nextButton.interactable = page < maxPage;
+            nextButton.interactable = page != maxPage-1;
             paginationNumber.text = $"{page + 1} / {maxPage}";
         }
 
