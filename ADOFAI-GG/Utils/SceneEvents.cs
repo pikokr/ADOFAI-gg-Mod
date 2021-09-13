@@ -1,5 +1,5 @@
 using System;
-using ADOFAI_GG.Scenes;
+using ADOFAI_GG.Presentation.View.Scene;
 using MelonLoader;
 using UnityEngine;
 using UnityEngine.SceneManagement;

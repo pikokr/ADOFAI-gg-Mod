@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Web;
-using ADOFAI_GG.Levels;
+using ADOFAI_GG.Domain.Model.Levels;
 using MelonLoader;
 using MelonLoader.TinyJSON;
 using UnityEngine;
@@ -11,7 +11,7 @@ using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace ADOFAI_GG.Scenes
+namespace ADOFAI_GG.Presentation.View.Scene
 {
     public class LevelsScene : SceneBase
     {
@@ -22,6 +22,12 @@ namespace ADOFAI_GG.Scenes
         private Text paginationNumber;
 
         private Transform content => root.transform.GetChild(1);
+        
+        public static void init(UnityEngine.SceneManagement.Scene scn, GameObject root)
+        {
+            var obj = new GameObject("LevelsScene");
+            obj.GetOrAddComponent<LevelsScene>().root = root;
+        }
 
         private void Start()
         {
@@ -177,10 +183,5 @@ namespace ADOFAI_GG.Scenes
             }
         }
 
-        public static void init(Scene scn, GameObject root)
-        {
-            var obj = new GameObject("LevelsScene");
-            obj.GetOrAddComponent<LevelsScene>().root = root;
-        }
     }
 }

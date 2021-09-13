@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
-namespace ADOFAI_GG.Patches.Intro
+namespace ADOFAI_GG.Presentation.Patches.Intro
 {
     internal static class IntroButtonPatches
     {

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace ADOFAI_GG.Scenes
+namespace ADOFAI_GG.Presentation.View.Scene
 {
     public class MainScene: SceneBase
     {
@@ -21,7 +21,7 @@ namespace ADOFAI_GG.Scenes
             });
         }
 
-        public static void init(Scene scn, GameObject root)
+        public static void init(UnityEngine.SceneManagement.Scene scn, GameObject root)
         {
             var obj = new GameObject("MainScene");
             obj.GetOrAddComponent<MainScene>().root = root;
