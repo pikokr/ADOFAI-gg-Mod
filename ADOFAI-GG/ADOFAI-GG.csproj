@@ -146,8 +146,6 @@
     <Reference Include="System.EnterpriseServices, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <HintPath>..\lib\Managed\System.EnterpriseServices.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Numerics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
       <HintPath>..\lib\Managed\System.Numerics.dll</HintPath>
     </Reference>
@@ -174,6 +172,25 @@
     </Reference>
     <Reference Include="System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
       <HintPath>..\lib\Managed\System.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="UniRx">
+      <HintPath>..\lib\dependancy\UniRx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UniTask">
+      <HintPath>..\lib\dependancy\UniTask.dll</HintPath>
+    </Reference>
+    <Reference Include="UniTask.Addressables">
+      <HintPath>..\lib\dependancy\UniTask.Addressables.dll</HintPath>
+    </Reference>
+    <Reference Include="UniTask.DOTween">
+      <HintPath>..\lib\dependancy\UniTask.DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="UniTask.Linq">
+      <HintPath>..\lib\dependancy\UniTask.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="UniTask.TextMeshPro">
+      <HintPath>..\lib\dependancy\UniTask.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.MemoryProfiler, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\lib\Managed\Unity.MemoryProfiler.dll</HintPath>
@@ -406,7 +423,8 @@
     </Target>
     -->
   <Target Name="AfterBuild">
-    <Copy SourceFiles="bin/Debug/ADOFAI_GG.dll" DestinationFolder="C:\Program Files (x86)\Steam\steamapps\common\A Dance of Fire and Ice\Mods" />
+    <Exec Command="cd .. &amp;&amp; make_debug.bat 0.0.1" />
+    <Copy SourceFiles="..\ADOFAI-gg-0.0.1.zip" DestinationFolder="C:\Program Files (x86)\Steam\steamapps\common\A Dance of Fire and Ice\Mods" />
     <Exec Command="taskkill /f /im &quot;A Dance*&quot; || exit 0" />
     <Exec Command="explorer steam://rungameid/977950 || exit 0" />
   </Target>
