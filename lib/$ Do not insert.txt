@@ -1,0 +1,6 @@
+Managed\UnityModManager\System.Xml.dll
+Managed\System.dll
+Managed\System.Core.dll
+Managed\System.Data.dll
+Managed\System.Xml.dll
+Managed\mscorlib.dll
