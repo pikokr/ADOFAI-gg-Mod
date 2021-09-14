@@ -1,11 +1,11 @@
 ManifestFileVersion: 0
-CRC: 4224230445
+CRC: 2516142741
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: assets.bundle
-      Dependencies: {}
-    Info_1:
       Name: scenes.bundle
       Dependencies:
         Dependency_0: assets.bundle
+    Info_1:
+      Name: assets.bundle
+      Dependencies: {}

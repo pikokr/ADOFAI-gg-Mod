@@ -25,6 +25,7 @@ namespace ADOFAI_GG.Scenes
         {
             var obj = new GameObject("MainScene");
             obj.GetOrAddComponent<MainScene>().root = root;
+            
         }
     }
 }

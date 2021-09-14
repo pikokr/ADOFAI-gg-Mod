@@ -1,39 +1,69 @@
 ManifestFileVersion: 0
-CRC: 1353457948
+CRC: 318382076
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 515cfaf9b3331480923a83b17bd909bf
+    Hash: e89d52ec29f245f9a62d25fcdd619b72
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 9e6ad29cbd2df8fbe1a15315db0e51ab
+    Hash: 101baa5a1e2cf172aea0b5b508f1d18c
 HashAppended: 0
 ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
 - Class: 28
   Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
 - Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
   Script: {instanceID: 0}
 Assets:
 - Assets/Images/difficultyIcons/-2.png
 - Assets/Images/difficultyIcons/7.png
+- Assets/Components/Button.prefab
 - Assets/Images/difficultyIcons/11.png
+- Assets/Components/Level.prefab
 - Assets/Images/difficultyIcons/18.5.png
+- Assets/Images/play.png
 - Assets/Images/difficultyIcons/1.png
 - Assets/Images/difficultyIcons/19.png
 - Assets/Images/icons/outline_favorite_white_24dp.png
 - Assets/Images/difficultyIcons/19.5.png
 - Assets/Images/difficultyIcons/2.png
+- Assets/Images/delete.png
 - Assets/Images/logo.png
 - Assets/Images/difficultyIcons/16.png
+- Assets/Images/download.png
 - Assets/Images/difficultyIcons/15.png
 - Assets/Images/difficultyIcons/6.png
 - Assets/Images/difficultyIcons/18.png
 - Assets/Images/background.png
 - Assets/Images/icons/outline_logout_white_24dp.png
+- Assets/Images/circle.png
+- Assets/Images/steam_logo.png
 - Assets/Images/difficultyIcons/20.png
 - Assets/Images/difficultyIcons/14.png
 - Assets/Images/icons/outline_search_white_24dp.png
 - Assets/Images/difficultyIcons/8.png
+- Assets/Images/gggem.png
 - Assets/Images/difficultyIcons/13.png
 - Assets/Images/components/levelIcon.png
 - Assets/Images/difficultyIcons/9.png
