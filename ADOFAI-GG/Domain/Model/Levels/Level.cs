@@ -1,8 +1,9 @@
 using System;
+using System.Collections.Generic;
 
 namespace ADOFAI_GG.Domain.Model.Levels
 {
-    [Serializable]
+
     public class LevelTag
     {
         public long id;
@@ -10,7 +11,6 @@ namespace ADOFAI_GG.Domain.Model.Levels
         public string name;
     }
     
-    [Serializable]
     public class Level
     {
         public long id;
@@ -19,13 +19,13 @@ namespace ADOFAI_GG.Domain.Model.Levels
 
         public double difficulty;
 
-        public string[] creators;
+        public List<string> creators;
 
         public long songId;
 
         public string song;
 
-        public string[] artists;
+        public List<string> artists;
 
         public double minBpm;
         
@@ -47,6 +47,6 @@ namespace ADOFAI_GG.Domain.Model.Levels
 
         public string workshop;
 
-        public LevelTag[] tags;
+        public List<LevelTag> tags;
     }
 }

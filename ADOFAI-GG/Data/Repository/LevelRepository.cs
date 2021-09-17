@@ -2,7 +2,6 @@
 using ADOFAI_GG.Utils;
 using Cysharp.Threading.Tasks;
 using System.Web;
-using UnityEngine;
 
 namespace ADOFAI_GG.Data.Repository
 {
@@ -34,10 +33,9 @@ namespace ADOFAI_GG.Data.Repository
             query.Add("queryCreator", searchQuery);
             query.Add("queryArtist", searchQuery);
             query.Add("sort", sort);
-
             string resultString = await NetworkUtil.GetTextAsync("api/v1/levels", query);
-
-            return JsonUtility.FromJson<LevelSearchResult>(resultString);
+            
+            return JsonUtil.Convert(resultString, new LevelSearchResult());
         }
 
     }
