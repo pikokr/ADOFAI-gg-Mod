@@ -8,10 +8,10 @@ namespace ADOFAI_GG.Utils
 {
     public static class SceneEvents
     {
-        internal static void Init()
+        [Init] internal static void Init()
         {
-            OnLoadScene("ADOFAIGG_MAIN", MainScene.init);
-            OnLoadScene("ADOFAIGG_LEVELS", LevelsScene.init);
+            OnLoadScene("ADOFAIGG_MAIN", MainScene.Init);
+            OnLoadScene("ADOFAIGG_LEVELS", LevelsScene.Init);
         }
         
         internal static void OnLoadScene(string scene, Action<Scene, GameObject> action)

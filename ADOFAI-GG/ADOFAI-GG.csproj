@@ -407,16 +407,55 @@
     <Compile Include="Utils\JsonUtil.cs" />
     <Compile Include="Utils\NetworkUtil.cs" />
     <Compile Include="Utils\SceneEvents.cs" />
-  </ItemGroup>
-  <ItemGroup Label="Assets">
-    <EmbeddedResource Include="Resources/assets.bundle" />
-    <EmbeddedResource Include="Resources/scenes.bundle" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Domain\Service\" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+        <Compile Include="API\Extensions.cs" />
+        <Compile Include="API\Filters\LevelFilter.cs" />
+        <Compile Include="API\Filters\PersonFilter.cs" />
+        <Compile Include="API\Filters\PlayLogsFilter.cs" />
+        <Compile Include="API\Filters\RankingFilter.cs" />
+        <Compile Include="API\Filters\SearchFilter.cs" />
+        <Compile Include="API\Request.cs" />
+        <Compile Include="API\RequestCo.cs" />
+        <Compile Include="API\SortOrder\LevelsSortOrder.cs" />
+        <Compile Include="API\SortOrder\PersonsSortOrder.cs" />
+        <Compile Include="API\SortOrder\PlayLogsSortOrder.cs" />
+        <Compile Include="API\TinyJSON\Decoder.cs" />
+        <Compile Include="API\TinyJSON\EncodeOptions.cs" />
+        <Compile Include="API\TinyJSON\Types\Variant.cs" />
+        <Compile Include="API\TinyJSON\Types\ProxyString.cs" />
+        <Compile Include="API\TinyJSON\Types\ProxyObject.cs" />
+        <Compile Include="API\TinyJSON\Types\ProxyNumber.cs" />
+        <Compile Include="API\TinyJSON\Types\ProxyBoolean.cs" />
+        <Compile Include="API\TinyJSON\JSON.cs" />
+        <Compile Include="API\TinyJSON\Extensions.cs" />
+        <Compile Include="API\TinyJSON\Encoder.cs" />
+        <Compile Include="API\TinyJSON\Types\ProxyArray.cs" />
+        <Compile Include="API\Types\Level.cs" />
+        <Compile Include="API\Types\Person.cs" />
+        <Compile Include="API\Types\PlayLog.cs" />
+        <Compile Include="Assets.cs" />
+        <Compile Include="API\Types\Tag.cs" />
+        <Compile Include="API\Types\Ranking.cs" />
+        <Compile Include="Components\Scenes\LevelsScene.cs" />
+        <Compile Include="Components\LevelButton.cs" />
+        <Compile Include="Components\Scenes\MainScene.cs" />
+        <Compile Include="Components\Scenes\SceneBase.cs" />
+        <Compile Include="ConstObject.cs" />
+        <Compile Include="Initalizer.cs" />
+        <Compile Include="InitAttribute.cs" />
+        <Compile Include="LateInitAttribute.cs" />
+        <Compile Include="Patches\Controller\QuitToMainMenuPatch.cs" />
+        <Compile Include="Patches\Intro\IntroButtonPatches.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="Utils\CoroutineManager.cs" />
+        <Compile Include="Utils\Misc.cs" />
+        <Compile Include="Utils\ReflectionExtension.cs" />
+        <Compile Include="Utils\SceneEvents.cs" />
+    </ItemGroup>
+    <ItemGroup Label="Assets">
+        <EmbeddedResource Include="Resources/assets.bundle" />
+        <EmbeddedResource Include="Resources/scenes.bundle" />
+    </ItemGroup>
+    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">
     </Target>

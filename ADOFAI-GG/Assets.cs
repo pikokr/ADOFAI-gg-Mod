@@ -6,13 +6,15 @@ namespace ADOFAI_GG
     public class Assets
     {
         public static AssetBundle Bundle;
-
-        public static void Init()
+        public static GameObject LevelPrefab;
+        [Init] public static void Init()
         {
             Bundle = AssetBundle.LoadFromMemory(ReadFully(
                 typeof(AdofaiGG).Assembly.GetManifestResourceStream("ADOFAI_GG.Resources.assets.bundle")));
             AssetBundle.LoadFromMemory(ReadFully(
                 typeof(AdofaiGG).Assembly.GetManifestResourceStream("ADOFAI_GG.Resources.scenes.bundle")));
+
+            LevelPrefab = Bundle.LoadAsset<GameObject>("Level");
         }
 
         private static byte[] ReadFully(Stream input)
