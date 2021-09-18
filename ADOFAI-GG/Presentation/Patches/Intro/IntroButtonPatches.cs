@@ -1,6 +1,6 @@
+using DG.Tweening;
 using HarmonyLib;
 using UnityEngine;
-using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
 namespace ADOFAI_GG.Presentation.Patches.Intro

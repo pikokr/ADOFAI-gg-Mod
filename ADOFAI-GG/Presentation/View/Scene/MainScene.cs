@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace ADOFAI_GG.Presentation.View.Scene
 {
-    public class MainScene: SceneBase
+    public class MainScene : SceneBase
     {
         private void Start()
         {
@@ -21,7 +21,7 @@ namespace ADOFAI_GG.Presentation.View.Scene
             });
         }
 
-        public static void init(UnityEngine.SceneManagement.Scene scn, GameObject root)
+        public static void Init(UnityEngine.SceneManagement.Scene scn, GameObject root)
         {
             var obj = new GameObject("MainScene");
             obj.GetOrAddComponent<MainScene>().root = root;

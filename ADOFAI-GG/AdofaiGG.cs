@@ -1,9 +1,6 @@
-using ADOFAI_GG.Utils;
 using Cysharp.Threading.Tasks;
 using MelonLoader;
 using UnityEngine.LowLevel;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace ADOFAI_GG
 {
@@ -11,10 +8,10 @@ namespace ADOFAI_GG
     {
         public override void OnApplicationStart()
         {
-            Initalizer.Init();
             PlayerLoopSystem playerLoopSystem = PlayerLoop.GetCurrentPlayerLoop();
             PlayerLoopHelper.Initialize(ref playerLoopSystem);
             PlayerLoop.SetPlayerLoop(playerLoopSystem);
+            Initalizer.Init();
         }
     }
 }

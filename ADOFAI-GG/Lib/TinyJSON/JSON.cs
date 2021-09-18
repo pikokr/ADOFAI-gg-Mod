@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
-using ADOFAI_GG.API.TinyJSON.Types;
+using TinyJSON.Types;
 #if ENABLE_IL2CPP
 using UnityEngine.Scripting;
 #endif
 
 
-namespace ADOFAI_GG.API.TinyJSON
+namespace TinyJSON
 {
 	/// <summary>
 	/// Mark members that should be included.

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace ADOFAI_GG.API.TinyJSON.Types
+namespace TinyJSON.Types
 {
 	public sealed class ProxyObject : Variant, IEnumerable<KeyValuePair<string, Variant>>
 	{

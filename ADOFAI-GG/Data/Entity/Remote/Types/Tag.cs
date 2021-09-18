@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.EnterpriseServices.Internal;
 using System.Linq;
-using System.Threading.Tasks;
-using Sirenix.Utilities;
 
-namespace ADOFAI_GG.API.Types {
+namespace ADOFAI_GG.Data.Entity.Remote.Types {
     public enum TagType {
         Invalid,
         Level

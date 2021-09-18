@@ -1,6 +1,6 @@
 using System;
 
-namespace ADOFAI_GG.API.TinyJSON.Types
+namespace TinyJSON.Types
 {
 	public sealed class ProxyString : Variant
 	{

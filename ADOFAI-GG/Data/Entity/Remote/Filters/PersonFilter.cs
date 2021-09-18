@@ -1,6 +1,6 @@
-﻿using ADOFAI_GG.API.SortOrder;
+﻿using ADOFAI_GG.Data.Entity.Remote.SortOrder;
 
-namespace ADOFAI_GG.API.Filters {
+namespace ADOFAI_GG.Data.Entity.Remote.Filters {
     public sealed class PersonFilter : SearchFilter {
         public PersonFilter(int offset, int amount) : base(offset, amount) { }
         private string name {

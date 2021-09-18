@@ -32,7 +32,7 @@ namespace ADOFAI_GG.Presentation.View.Scene
 
         private Image searchButton;
 
-        public static void init(UnityEngine.SceneManagement.Scene scn, GameObject root)
+        public static void Init(UnityEngine.SceneManagement.Scene scn, GameObject root)
         {
             var obj = new GameObject("LevelsScene");
             obj.GetOrAddComponent<LevelsScene>().root = root;

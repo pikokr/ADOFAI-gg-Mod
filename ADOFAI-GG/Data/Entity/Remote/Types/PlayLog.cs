@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Globalization;
 using System.Threading.Tasks;
-using ADOFAI_GG.API.TinyJSON.Types;
+using TinyJSON.Types;
 using ADOFAI_GG.Utils;
 using Steamworks;
 
-namespace ADOFAI_GG.API.Types {
+namespace ADOFAI_GG.Data.Entity.Remote.Types {
     public class PlayLog {
         public readonly int Id;
         public readonly DateTime TimeStamp;

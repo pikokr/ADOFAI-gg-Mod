@@ -1,9 +1,9 @@
 using System;
 using System.IO;
 using System.Text;
-using ADOFAI_GG.API.TinyJSON.Types;
+using TinyJSON.Types;
 
-namespace ADOFAI_GG.API.TinyJSON
+namespace TinyJSON
 {
 	public sealed class Decoder : IDisposable
 	{

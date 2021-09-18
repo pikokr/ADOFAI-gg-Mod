@@ -1,8 +1,8 @@
 ﻿using System.Globalization;
-using ADOFAI_GG.API.TinyJSON.Types;
+using TinyJSON.Types;
 using ADOFAI_GG.Utils;
 
-namespace ADOFAI_GG.API.Types {
+namespace ADOFAI_GG.Data.Entity.Remote.Types {
     public class Person {
         public readonly int Id;
         public readonly string Name;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ADOFAI_GG.API.TinyJSON
+namespace TinyJSON
 {
 	[Flags]
 	public enum EncodeOptions

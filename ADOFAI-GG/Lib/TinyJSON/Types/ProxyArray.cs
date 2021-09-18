@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace ADOFAI_GG.API.TinyJSON.Types
+namespace TinyJSON.Types
 {
 	public sealed class ProxyArray : Variant, IEnumerable<Variant>
 	{

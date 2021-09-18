@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using ADOFAI_GG.API.SortOrder;
-using ADOFAI_GG.API.Types;
+using ADOFAI_GG.Data.Entity.Remote.SortOrder;
+using ADOFAI_GG.Data.Entity.Remote.Types;
+using ADOFAI_GG.Utils;
 
-namespace ADOFAI_GG.API.Filters {
+namespace ADOFAI_GG.Data.Entity.Remote.Filters {
     public sealed class LevelFilter : SearchFilter {
         public LevelFilter(int offset, int amount) : base(offset, amount) { }
 

@@ -1,4 +1,4 @@
-﻿namespace ADOFAI_GG.API.SortOrder {
+﻿namespace ADOFAI_GG.Data.Entity.Remote.SortOrder {
     public enum LevelsSortOrder {
         LIKE_DESC,
         LIKE_ASC,

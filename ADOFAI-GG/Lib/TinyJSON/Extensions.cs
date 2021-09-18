@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ADOFAI_GG.API.TinyJSON
+namespace TinyJSON
 {
 	public static class Extensions
 	{

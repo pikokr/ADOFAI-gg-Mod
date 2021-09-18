@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
-using ADOFAI_GG.API.Filters;
-using ADOFAI_GG.API.TinyJSON;
-using ADOFAI_GG.API.TinyJSON.Types;
-using ADOFAI_GG.API.Types;
+using ADOFAI_GG.Data.Entity.Remote.Filters;
+using TinyJSON;
+using TinyJSON.Types;
+using ADOFAI_GG.Data.Entity.Remote.Types;
 using MelonLoader;
-using UnityEngine.Networking;
+using ADOFAI_GG.Utils;
 
-namespace ADOFAI_GG.API {
+namespace ADOFAI_GG.Data {
     public static class Request {
         public const string RequestURL = "https://api.adofai.gg:9200/";
         public static string LastError;
@@ -94,6 +90,7 @@ namespace ADOFAI_GG.API {
             var json = await _request($"api/v1/tags");
             if (json == null) return null;
             var results = json["results"];
+            MelonLogger.Msg("tags new list");
             var allTags = new List<(int, TagType, string)>();
 
             foreach (var tag in (ProxyArray) results) {
@@ -106,6 +103,7 @@ namespace ADOFAI_GG.API {
                 }
             }
 
+            MelonLogger.Msg("tags new dictionary");
             var result = new Dictionary<TagType, Dictionary<int, string>>();
             foreach (int tag in Enum.GetValues(typeof(TagType))) {
                 var tags = new Dictionary<int, string>();
@@ -117,20 +115,20 @@ namespace ADOFAI_GG.API {
                 result.Add((TagType) tag, tags);
             }
 
+            MelonLogger.Msg("success tag get");
+
             return result;
         }
 
         private static async Task<Variant> _request(string url) {
             MelonLogger.Msg(url);
-            var client = new HttpClient {
-                BaseAddress = new Uri(RequestURL)
-            };
 
-            HttpResponseMessage response = client.GetAsync(url).Result;
-            if (response.IsSuccessStatusCode) {
-                var content = await response.Content.ReadAsStringAsync();
-                var json = JSON.Load(content);
-                return json;
+            string content = await NetworkUtil.GetTextAsync(url);
+            MelonLogger.Msg("Failed fetching");
+
+            if (content != null)
+            {
+                return JSON.Load(content);
             }
 
             MelonLogger.Msg("Failed fetching");

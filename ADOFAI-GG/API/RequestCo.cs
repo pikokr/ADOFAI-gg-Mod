@@ -1,21 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web;
-using ADOFAI_GG.API.Filters;
-using ADOFAI_GG.API.TinyJSON;
-using ADOFAI_GG.API.TinyJSON.Types;
-using ADOFAI_GG.API.Types;
+using TinyJSON;
+using TinyJSON.Types;
+using ADOFAI_GG.Data.Entity.Remote.Types;
+using ADOFAI_GG.Data.Entity.Remote.Filters;
 using MelonLoader;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace ADOFAI_GG.API {
+namespace ADOFAI_GG.Data {
     public static class RequestCo {
         public const string RequestURL = "https://api.adofai.gg:9200/";
 

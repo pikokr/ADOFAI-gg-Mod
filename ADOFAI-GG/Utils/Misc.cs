@@ -1,22 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using ADOFAI_GG.API;
-using ADOFAI_GG.API.Filters;
-using ADOFAI_GG.API.TinyJSON.Types;
-using ADOFAI_GG.API.Types;
-using MelonLoader;
-using RDTools;
-using Steamworks;
-using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using TinyJSON.Types;
 
 namespace ADOFAI_GG.Utils {
 	public static class Misc {

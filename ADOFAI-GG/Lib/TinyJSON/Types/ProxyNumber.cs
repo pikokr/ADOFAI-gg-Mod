@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
 
-namespace ADOFAI_GG.API.TinyJSON.Types
+namespace TinyJSON.Types
 {
 	public sealed class ProxyNumber : Variant
 	{

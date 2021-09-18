@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
-using ADOFAI_GG.API.TinyJSON.Types;
+using TinyJSON.Types;
 
-namespace ADOFAI_GG.API.TinyJSON
+namespace TinyJSON
 {
 	public sealed class Encoder
 	{

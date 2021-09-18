@@ -3,7 +3,7 @@ using System.Collections;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using ADOFAI_GG.API.TinyJSON.Types;
+using TinyJSON.Types;
 using ADOFAI_GG.Components.Scenes;
 using ADOFAI_GG.Utils;
 using MelonLoader;
@@ -12,7 +12,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
-namespace ADOFAI_GG.API.Types {
+namespace ADOFAI_GG.Data.Entity.Remote.Types {
 	public class Level {
 		public readonly int Id;
 		public readonly string Title;

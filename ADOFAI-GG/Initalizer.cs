@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
+using MelonLoader;
 using AccessTools = HarmonyLib.AccessTools;
 
 namespace ADOFAI_GG {
     public static class Initalizer {
-        public static void Init() {
+        public static void Init()
+        {
             var methods = GetAllTypes(AppDomain.CurrentDomain.GetAssemblies()
                     .SelectMany(assembly => assembly.GetTypes()))
                 .Where(type => !(type?.Namespace?.StartsWith("System") ?? true))
@@ -20,17 +22,29 @@ namespace ADOFAI_GG {
                                && !info.IsGenericMethodDefinition
                 );
 
+            MelonLogger.Msg("asdfadsfasdf");
+
             var initalizers = new Action(() => { });
-            foreach (var methodInfo in methods) {
-                if (methodInfo.GetCustomAttribute<InitAttribute>() != null) {
-                    initalizers += (() => methodInfo.Invoke(null, new object[] { }));
+            foreach (var methodInfo in methods)
+            {
+                if (methodInfo.GetCustomAttribute<InitAttribute>() != null)
+                {
+                    MelonLogger.Msg("f");
+                    initalizers += () => {
+                        MelonLogger.Msg("invoke");
+                        methodInfo.Invoke(null, new object[] { });
+                    };
+                    methodInfo.Invoke(null, new object[] { });
                 }
             }
 
+            MelonLogger.Msg("frsefsf");
             initalizers();
+            MelonLogger.Msg("e");
         }
         
-        public static void LateInit() {
+        public static void LateInit()
+        {
             var methods = GetAllTypes(AppDomain.CurrentDomain.GetAssemblies()
                     .SelectMany(assembly => assembly.GetTypes()))
                 .Where(type => !(type?.Namespace?.StartsWith("System") ?? true))
@@ -43,17 +57,19 @@ namespace ADOFAI_GG {
                                && !info.IsGenericMethodDefinition
                 );
 
-            var initalizers = new Action(() => { });
-            foreach (var methodInfo in methods) {
-                if (methodInfo.GetCustomAttribute<LateInitAttribute>() != null) {
-                    initalizers += (() => methodInfo.Invoke(null, new object[] { }));
+            foreach (var methodInfo in methods)
+            {
+                if (methodInfo.GetCustomAttribute<LateInitAttribute>() != null)
+                {
+                    MelonLogger.Msg("invoke");
+                    methodInfo.Invoke(null, new object[] { });
                 }
             }
-
-            initalizers();
         }
 
-        private static List<Type> GetAllTypes(IEnumerable<Type> types) {
+        private static List<Type> GetAllTypes(IEnumerable<Type> types)
+        {
+            MelonLogger.Msg("gat");
             var result = new List<Type>();
             foreach (var type in types) {
                 result.Add(type);
@@ -64,7 +80,8 @@ namespace ADOFAI_GG {
 
             return result;
         }
-        private static List<Type> GetAllNestedTypes(Type type) {
+        private static List<Type> GetAllNestedTypes(Type type)
+        {
             var nesteds = type.GetNestedTypes(AccessTools.all);
 
             var result = new List<Type>();

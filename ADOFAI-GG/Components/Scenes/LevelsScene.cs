@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
-using ADOFAI_GG.API;
-using ADOFAI_GG.API.Filters;
-using ADOFAI_GG.API.SortOrder;
-using ADOFAI_GG.API.Types;
+using ADOFAI_GG.Data;
+using ADOFAI_GG.Data.Entity.Remote.Filters;
+using ADOFAI_GG.Data.Entity.Remote.SortOrder;
+using ADOFAI_GG.Data.Entity.Remote.Types;
+using ADOFAI_GG.Presentation.View.Scene;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;

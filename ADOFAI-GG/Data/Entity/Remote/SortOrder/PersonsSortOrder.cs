@@ -1,4 +1,4 @@
-﻿namespace ADOFAI_GG.API.SortOrder {
+﻿namespace ADOFAI_GG.Data.Entity.Remote.SortOrder {
     public enum PersonsSortOrder {
         RECENT_ASC,
         RECENT_DESC,
