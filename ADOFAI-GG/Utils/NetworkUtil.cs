@@ -1,7 +1,9 @@
 ﻿using Cysharp.Threading.Tasks;
 using MelonLoader;
+using MelonLoader.TinyJSON;
+using System;
 using System.Collections.Specialized;
-using UnityEngine.Networking;
+using System.Net.Http;
 
 namespace ADOFAI_GG.Utils
 {
@@ -10,12 +12,20 @@ namespace ADOFAI_GG.Utils
 
         public static async UniTask<string> GetTextAsync(string path, NameValueCollection query = null)
         {
-            var request = UnityWebRequest.Get(Constants.BASE_URL + path + (query == null ? "" : "?" + query));
 
-            MelonLogger.Msg("Get");
-            var operation = await request.SendWebRequest();
-            MelonLogger.Msg("result");
-            return operation.downloadHandler.text;
+            var client = new HttpClient
+            {
+                BaseAddress = new Uri(Constants.BASE_URL)
+            };
+
+            HttpResponseMessage response = client.GetAsync(path + (query == null ? "" : "?" + query)).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string result = await response.Content.ReadAsStringAsync();
+                return result;
+            }
+
+            return null;
         }
 
 

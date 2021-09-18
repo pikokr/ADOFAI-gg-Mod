@@ -1,6 +1,5 @@
 using ADOFAI_GG.Components.Scenes;
 using HarmonyLib;
-using UnityEngine.SceneManagement;
 
 namespace ADOFAI_GG.Presentation.Patches.Controller {
 
@@ -18,6 +17,7 @@ namespace ADOFAI_GG.Presentation.Patches.Controller {
             GCS.currentSpeedRun = 1f;
             return false;
         }
+
     }
 
 }

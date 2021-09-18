@@ -10,9 +10,9 @@ namespace ADOFAI_GG {
     public static class Initalizer {
         public static void Init()
         {
-            var methods = GetAllTypes(AppDomain.CurrentDomain.GetAssemblies()
-                    .SelectMany(assembly => assembly.GetTypes()))
-                .Where(type => !(type?.Namespace?.StartsWith("System") ?? true))
+
+            var methods = GetAllTypes(Assembly.GetExecutingAssembly().GetTypes())
+                .Where(type => (type?.Namespace?.StartsWith("ADOFAI_GG") ?? false))
                 .SelectMany(type => type.GetMethods(AccessTools.all))
                 .Where(info => info.IsStatic
                                && info.GetParameters().Length == 0
@@ -22,32 +22,25 @@ namespace ADOFAI_GG {
                                && !info.IsGenericMethodDefinition
                 );
 
-            MelonLogger.Msg("asdfadsfasdf");
-
             var initalizers = new Action(() => { });
             foreach (var methodInfo in methods)
             {
                 if (methodInfo.GetCustomAttribute<InitAttribute>() != null)
                 {
-                    MelonLogger.Msg("f");
                     initalizers += () => {
-                        MelonLogger.Msg("invoke");
                         methodInfo.Invoke(null, new object[] { });
                     };
-                    methodInfo.Invoke(null, new object[] { });
                 }
             }
 
-            MelonLogger.Msg("frsefsf");
             initalizers();
-            MelonLogger.Msg("e");
         }
         
         public static void LateInit()
         {
             var methods = GetAllTypes(AppDomain.CurrentDomain.GetAssemblies()
                     .SelectMany(assembly => assembly.GetTypes()))
-                .Where(type => !(type?.Namespace?.StartsWith("System") ?? true))
+                .Where(type => (type?.Namespace?.StartsWith("ADOFAI_GG") ?? false))
                 .SelectMany(type => type.GetMethods(AccessTools.all))
                 .Where(info => info.IsStatic
                                && info.GetParameters().Length == 0
