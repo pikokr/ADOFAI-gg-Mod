@@ -2,7 +2,8 @@ using ADOFAI_GG.Components.Scenes;
 using HarmonyLib;
 using UnityEngine.SceneManagement;
 
-namespace ADOFAI_GG.Patches.Controller {
+namespace ADOFAI_GG.Presentation.Patches.Controller {
+
     [HarmonyPatch(typeof(scrController), "QuitToMainMenu")]
     public static class QuitToMainMenuPatch {
         public static bool Prefix() {
@@ -18,4 +19,5 @@ namespace ADOFAI_GG.Patches.Controller {
             return false;
         }
     }
+
 }

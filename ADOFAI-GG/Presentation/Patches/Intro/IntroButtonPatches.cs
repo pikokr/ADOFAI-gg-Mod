@@ -10,21 +10,38 @@ namespace ADOFAI_GG.Presentation.Patches.Intro
         [HarmonyPatch(typeof(scnLevelSelect), "Start")]
         private static class ScnLevelSelectStart
         {
+            public const float FloorPosX = 8;
+            public const float FloorPosY = -3;
+
             private static void Postfix()
             {
                 var parent = GameObject.Find("outer ring");
+                var gemParent = GameObject.Find("XtraGem");
+                var gem = gemParent.transform.Find("MovingGem_Top").gameObject;
                 var f = parent.transform.Find("FloorCalibration").gameObject;
-                var obj = Object.Instantiate(f, parent.transform);
+                var obj = Object.Instantiate(gem, parent.transform);
                 obj.name = "FloorAdofaiGG";
                 var floor = obj.GetComponent<scrFloor>();
-                obj.transform.position = new Vector3(2, 3);
+                var movingfloor = obj.GetComponent<scrMenuMovingFloor>();
+                Object.Destroy(obj.GetComponent<ffxCallFunction>());
+                obj.transform.position = new Vector3(FloorPosX, FloorPosY);
+                floor.isportal = true;
                 floor.levelnumber = -12345678;
-                var textParent = GameObject.Find("Canvas World");
+                obj.transform.Find("SpecIcon").gameObject.SetActive(false);
+                var spriteRenderer = obj.GetComponent<SpriteRenderer>();
+                spriteRenderer.sprite = Sprite.Create(Assets.Bundle.LoadAsset<Texture2D>("gggem"),
+                    new Rect(0, 0, 128, 128), new Vector2(0.5f, 0.5f));
+                spriteRenderer.color = Color.red;
+                DOTween.To((value => spriteRenderer.color = Color.Lerp(
+                        new Color(1, 0.25f, 0.25f, spriteRenderer.color.a),
+                        new Color(0.25f, 0.25f, 1, spriteRenderer.color.a), value)), 0, 1, 2).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
+
+                /*var textParent = GameObject.Find("Canvas World");
                 var textObj = Object.Instantiate(textParent.transform.Find("Calibration"), textParent.transform);
-                textObj.position = new Vector3(5.4969f, 3.001f, 72.32f);
+                textObj.position = new Vector3(FloorPosX - 0.5f, FloorPosY, 0);
                 textObj.name = "AdofaiGG";
                 textObj.GetComponent<scrTextChanger>().desktopText = "ADOFAI.GG";
-                textObj.GetComponent<Text>().alignment = TextAnchor.MiddleLeft;
+                textObj.GetComponent<Text>().alignment = TextAnchor.MiddleLeft;*/
             }
         }
 
