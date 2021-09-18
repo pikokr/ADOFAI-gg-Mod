@@ -1,5 +1,5 @@
 using System;
-using ADOFAI_GG.Scenes;
+using ADOFAI_GG.Components.Scenes;
 using MelonLoader;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,7 +10,7 @@ namespace ADOFAI_GG.Utils
     {
         [Init] internal static void Init()
         {
-            OnLoadScene("ADOFAIGG_MAIN", MainScene.init);
+            OnLoadScene("ADOFAIGG_MAIN", MainScene.Init);
             OnLoadScene("ADOFAIGG_LEVELS", LevelsScene.Init);
         }
         

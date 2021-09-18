@@ -10,7 +10,6 @@ using ADOFAI_GG.API;
 using ADOFAI_GG.API.Filters;
 using ADOFAI_GG.API.TinyJSON.Types;
 using ADOFAI_GG.API.Types;
-using ADOFAI_GG.Scenes;
 using MelonLoader;
 using RDTools;
 using Steamworks;
@@ -35,12 +34,16 @@ namespace ADOFAI_GG.Utils {
 			return null;
 		}
 
-		public static string GoogleDriveToDirect(this string url) {
+		public static string LinkToDirect(this string url) {
 			if (url.Contains("drive.google.com/file/d/")) {
 				var pattern = "drive.google.com/file/d/.+?/";
 				var match = Regex.Match(url, pattern);
 				var id = match.Groups[0].Value.Substring(24).Replace("/", "");
 				return $"https://drive.google.com/uc?export=download&id={id}";
+			}
+
+			if (url.Contains("www.mediafire.com/file/")) {
+				
 			}
 
 			return url;

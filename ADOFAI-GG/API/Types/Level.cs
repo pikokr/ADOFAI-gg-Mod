@@ -4,7 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using ADOFAI_GG.API.TinyJSON.Types;
-using ADOFAI_GG.Scenes;
+using ADOFAI_GG.Components.Scenes;
 using ADOFAI_GG.Utils;
 using MelonLoader;
 using RDTools;
@@ -122,7 +122,7 @@ namespace ADOFAI_GG.API.Types {
 			return text2;
 		}
 		public IEnumerator DownloadLevel() {
-			var url = Download.GoogleDriveToDirect();
+			var url = Download.LinkToDirect();
 			var id = Id;
 			MelonLogger.Msg(url);
 			Debug.Log(url);
@@ -184,14 +184,16 @@ namespace ADOFAI_GG.API.Types {
 
 		public IEnumerator LoadLevel() {
 			var dataPathFromURL = GetDataPathFromURL(Id.ToString());
-			yield return SceneManager.LoadSceneAsync("scnCLS", LoadSceneMode.Additive);
 
 			string text2 = FindAdofaiLevelOnDirectory(dataPathFromURL);
 			if (text2 != null) {
 				GCS.customLevelIndex = 0;
 				GCS.speedTrialMode = false;
-				scrController.instance.audioManager.StopLoadingMP3File();
-				scrController.instance.LoadCustomWorld(text2);
+				GCS.customLevelPaths = CustomLevel.GetWorldPaths(text2, false, true);
+				GCS.customLevelIndex = 0;
+				GCS.standaloneLevelMode = true;
+				yield return SceneManager.LoadSceneAsync(GCNS.sceneEditor);
+				yield break;
 			} else {
 				Directory.Delete(dataPathFromURL, true);
 				RDFile.Delete(dataPathFromURL);
