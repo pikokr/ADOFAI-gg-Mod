@@ -13,12 +13,12 @@ namespace ADOFAI_GG.Data.Entity.Remote.Filters {
             set => filters["sort"] = value;
         }
 
-        private double? minTotalPP {
+        private double? minTotalPp {
             get => (double?) filters["minTotalPp"];
             set => filters["minTotalPp"] = value;
         }
 
-        private double? maxTotalPP {
+        private double? maxTotalPp {
             get => (double?) filters["maxTotalPp"];
             set => filters["maxTotalPp"] = value;
         }
@@ -33,13 +33,13 @@ namespace ADOFAI_GG.Data.Entity.Remote.Filters {
             return this;
         }
 
-        public PersonFilter MinTotalPP(double value) {
-            minTotalPP = value;
+        public PersonFilter MinTotalPp(double value) {
+            minTotalPp = value;
             return this;
         }
 
-        public PersonFilter MaxTotalPP(double value) {
-            maxTotalPP = value;
+        public PersonFilter MaxTotalPp(double value) {
+            maxTotalPp = value;
             return this;
         }
 

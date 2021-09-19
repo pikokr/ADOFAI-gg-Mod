@@ -8,8 +8,7 @@ using AccessTools = HarmonyLib.AccessTools;
 
 namespace ADOFAI_GG.Utils.Initializer {
     public static class Initalizer {
-        public static void Init()
-        {
+        public static void Init() {
 
             var methods = GetAllTypes(Assembly.GetExecutingAssembly().GetTypes())
                 .Where(type => (type?.Namespace?.StartsWith("ADOFAI_GG") ?? false))
@@ -23,21 +22,16 @@ namespace ADOFAI_GG.Utils.Initializer {
                 );
 
             var initalizers = new Action(() => { });
-            foreach (var methodInfo in methods)
-            {
-                if (methodInfo.GetCustomAttribute<InitAttribute>() != null)
-                {
-                    initalizers += () => {
-                        methodInfo.Invoke(null, new object[] { });
-                    };
+            foreach (var methodInfo in methods) {
+                if (methodInfo.GetCustomAttribute<InitAttribute>() != null) {
+                    initalizers += () => { methodInfo.Invoke(null, new object[] { }); };
                 }
             }
 
             initalizers();
         }
-        
-        public static void LateInit()
-        {
+
+        public static void LateInit() {
             var methods = GetAllTypes(AppDomain.CurrentDomain.GetAssemblies()
                     .SelectMany(assembly => assembly.GetTypes()))
                 .Where(type => (type?.Namespace?.StartsWith("ADOFAI_GG") ?? false))
@@ -50,18 +44,15 @@ namespace ADOFAI_GG.Utils.Initializer {
                                && !info.IsGenericMethodDefinition
                 );
 
-            foreach (var methodInfo in methods)
-            {
-                if (methodInfo.GetCustomAttribute<LateInitAttribute>() != null)
-                {
+            foreach (var methodInfo in methods) {
+                if (methodInfo.GetCustomAttribute<LateInitAttribute>() != null) {
                     MelonLogger.Msg("invoke");
                     methodInfo.Invoke(null, new object[] { });
                 }
             }
         }
 
-        private static List<Type> GetAllTypes(IEnumerable<Type> types)
-        {
+        private static List<Type> GetAllTypes(IEnumerable<Type> types) {
             MelonLogger.Msg("gat");
             var result = new List<Type>();
             foreach (var type in types) {
@@ -73,8 +64,8 @@ namespace ADOFAI_GG.Utils.Initializer {
 
             return result;
         }
-        private static List<Type> GetAllNestedTypes(Type type)
-        {
+
+        private static List<Type> GetAllNestedTypes(Type type) {
             var nesteds = type.GetNestedTypes(AccessTools.all);
 
             var result = new List<Type>();

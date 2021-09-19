@@ -43,12 +43,12 @@ namespace ADOFAI_GG.Data.Entity.Remote.Filters {
             set => filters["maxDifficulty"] = value;
         }
 
-        private double? minBPM {
+        private double? minBpm {
             get => (double?) filters["minBpm"];
             set => filters["minBpm"] = value;
         }
 
-        private double? maxBPM {
+        private double? maxBpm {
             get => (double?) filters["maxBpm"];
             set => filters["maxBpm"] = value;
         }
@@ -103,13 +103,13 @@ namespace ADOFAI_GG.Data.Entity.Remote.Filters {
             return this;
         }
 
-        public LevelFilter MinBPM(double value) {
-            minBPM = value;
+        public LevelFilter MinBpm(double value) {
+            minBpm = value;
             return this;
         }
 
-        public LevelFilter MaxBPM(double value) {
-            maxBPM = value;
+        public LevelFilter MaxBpm(double value) {
+            maxBpm = value;
             return this;
         }
 

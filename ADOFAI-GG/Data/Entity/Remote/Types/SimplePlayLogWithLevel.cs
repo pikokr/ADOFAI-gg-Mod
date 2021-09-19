@@ -6,10 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TinyJSON.Types;
 
-namespace ADOFAI_GG.Data.Entity.Remote.Types
-{
-    public class SimplePlayLogWithLevel
-    {
+namespace ADOFAI_GG.Data.Entity.Remote.Types {
+    public class SimplePlayLogWithLevel {
         public readonly int Id;
         public readonly int LevelId;
         public readonly List<string> Artists;
@@ -21,9 +19,8 @@ namespace ADOFAI_GG.Data.Entity.Remote.Types
         public readonly double PlayPoint;
         public readonly string URL;
 
-        internal SimplePlayLogWithLevel(int id, int levelId, List<string> artists, string title, 
-            double difficulty, int speed, double rawAccuracy, double accuracy, double playPoint, string url)
-        {
+        internal SimplePlayLogWithLevel(int id, int levelId, List<string> artists, string title,
+            double difficulty, int speed, double rawAccuracy, double accuracy, double playPoint, string url) {
             Id = id;
             LevelId = levelId;
             Artists = artists;
@@ -36,18 +33,17 @@ namespace ADOFAI_GG.Data.Entity.Remote.Types
             URL = url;
         }
 
-        public static SimplePlayLogWithLevel FromJson(Variant obj)
-        {
+        public static SimplePlayLogWithLevel FromJson(Variant obj) {
             return new SimplePlayLogWithLevel(
                 obj["id"],
                 obj["levelId"],
-                (from artist in obj["artists"] as ProxyArray select artist.ToString()).ToList(), 
-                obj["title"], 
-                obj["difficulty"], 
-                obj["speed"], 
-                obj["rawAccuracy"], 
-                obj["accuracy"], 
-                obj["playPoint"], 
+                (from artist in obj["artists"] as ProxyArray select artist.ToString()).ToList(),
+                obj["title"],
+                obj["difficulty"],
+                obj["speed"],
+                obj["rawAccuracy"],
+                obj["accuracy"],
+                obj["playPoint"],
                 obj["url"]
             );
         }

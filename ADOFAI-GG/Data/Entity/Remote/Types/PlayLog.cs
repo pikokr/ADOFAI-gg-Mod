@@ -18,7 +18,8 @@ namespace ADOFAI_GG.Data.Entity.Remote.Types {
         public readonly double PlayPoint;
         public readonly string Description;
 
-        internal PlayLog(int id, DateTime timeStamp, IdNameDto level, IdNameDto player, double rawAccuracy, double accuracy,
+        internal PlayLog(int id, DateTime timeStamp, IdNameDto level, IdNameDto player, double rawAccuracy,
+            double accuracy,
             int speed, string url, bool accept, double playPoint, string description) {
             Id = id;
             TimeStamp = timeStamp;
@@ -32,7 +33,7 @@ namespace ADOFAI_GG.Data.Entity.Remote.Types {
             PlayPoint = playPoint;
             Description = description;
         }
-        
+
         public static PlayLog FromJson(Variant obj) {
             if (obj == null) return null;
 
@@ -65,7 +66,5 @@ namespace ADOFAI_GG.Data.Entity.Remote.Types {
                 obj.GetOrNull("description")?.ToString(CultureInfo.InvariantCulture)
             );
         }
-
     }
-
 }

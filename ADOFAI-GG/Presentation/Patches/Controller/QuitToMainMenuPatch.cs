@@ -17,7 +17,5 @@ namespace ADOFAI_GG.Presentation.Patches.Controller {
             GCS.currentSpeedRun = 1f;
             return false;
         }
-
     }
-
 }

@@ -396,7 +396,6 @@
   <ItemGroup>
     <Compile Include="AdofaiGG.cs" />
     <Compile Include="Assets.cs" />
-    <Compile Include="Data\Entity\Remote\LevelSearchResult.cs" />
     <Compile Include="Data\Entity\Remote\Types\IdNameDto.cs" />
     <Compile Include="Data\Entity\Remote\Types\SimplePlayLogWithLevel.cs" />
     <Compile Include="Data\Repository\LevelFileRepository.cs" />
@@ -405,7 +404,6 @@
     <Compile Include="Data\Repository\PlayLogRepository.cs" />
     <Compile Include="Data\Repository\RankingRepository.cs" />
     <Compile Include="Data\Repository\TagRepository.cs" />
-    <Compile Include="Domain\Model\Levels\Level.cs" />
     <Compile Include="Presentation\Model\LevelModel.cs" />
     <Compile Include="Presentation\Patches\Intro\IntroButtonPatches.cs" />
     <Compile Include="Presentation\ViewModel\Scene\LevelsViewModel.cs" />

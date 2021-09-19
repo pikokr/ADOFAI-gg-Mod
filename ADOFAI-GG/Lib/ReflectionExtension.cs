@@ -89,7 +89,7 @@ namespace ADOFAI_GG.Lib {
             return result;
         }
 
-        private static bool isNullable(Type type) {
+        private static bool IsNullable(Type type) {
             if (!type.IsValueType) return true;
             if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>)) {
                 return true;
@@ -124,14 +124,14 @@ namespace ADOFAI_GG.Lib {
 
             if (fields[type].ContainsKey(varName)) {
                 var result = fields[type][varName].GetValue(instance);
-                if (result == null && isNullable(typeof(T))) return default;
+                if (result == null && IsNullable(typeof(T))) return default;
                 if (result is T res) return res;
                 throw new InvalidCastException(varName);
             }
 
             if (properties[type][varName].CanRead) {
                 var result = properties[type][varName].GetValue(instance);
-                if (result == null && isNullable(typeof(T))) return default;
+                if (result == null && IsNullable(typeof(T))) return default;
                 if (result is T res) return res;
                 throw new InvalidCastException(varName);
             }

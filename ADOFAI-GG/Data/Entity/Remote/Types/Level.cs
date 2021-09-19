@@ -17,8 +17,8 @@ namespace ADOFAI_GG.Data.Entity.Remote.Types {
 		public readonly int SongId;
 		public readonly string Song;
 		public readonly string[] Artists;
-		public readonly double MinBPM;
-		public readonly double MaxBPM;
+		public readonly double MinBpm;
+		public readonly double MaxBpm;
 		public readonly int Tiles;
 		public readonly int Comments;
 		public readonly int Likes;
@@ -39,8 +39,8 @@ namespace ADOFAI_GG.Data.Entity.Remote.Types {
 			SongId = songId;
 			Song = song;
 			Artists = artists;
-			MinBPM = minBpm;
-			MaxBPM = maxBpm;
+			MinBpm = minBpm;
+			MaxBpm = maxBpm;
 			Tiles = tiles;
 			Comments = comments;
 			Likes = likes;
@@ -69,6 +69,5 @@ namespace ADOFAI_GG.Data.Entity.Remote.Types {
 				(from tag in (ProxyArray)obj["tags"] select IdNameDto.FromJson(tag)).ToArray()
 			);
 		}
-
 	}
 }

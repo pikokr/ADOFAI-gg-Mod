@@ -2,30 +2,27 @@ using ADOFAI_GG.Utils.Initializer;
 using System.IO;
 using UnityEngine;
 
-namespace ADOFAI_GG
-{
-    public class Assets
-    {
+namespace ADOFAI_GG {
+    public class Assets {
         public static AssetBundle Bundle;
         public static GameObject LevelPrefab;
-        [Init] public static void Init()
-        {
-            Bundle = AssetBundle.LoadFromStream(typeof(AdofaiGG).Assembly.GetManifestResourceStream("ADOFAI_GG.Resources.assets.bundle"));
-            AssetBundle.LoadFromStream(typeof(AdofaiGG).Assembly.GetManifestResourceStream("ADOFAI_GG.Resources.scenes.bundle"));
+
+        [Init] public static void Init() {
+            Bundle = AssetBundle.LoadFromStream(
+                typeof(AdofaiGG).Assembly.GetManifestResourceStream("ADOFAI_GG.Resources.assets.bundle"));
+            AssetBundle.LoadFromStream(
+                typeof(AdofaiGG).Assembly.GetManifestResourceStream("ADOFAI_GG.Resources.scenes.bundle"));
 
             LevelPrefab = Bundle.LoadAsset<GameObject>("Level");
         }
 
-        private static byte[] ReadFully(Stream input)
-        {
-            using (var ms = new MemoryStream())
-            {
-                byte[] buffer = new byte[81920];
-                int read;
-                while ((read = input.Read(buffer, 0, buffer.Length)) != 0)
-                    ms.Write(buffer, 0, read);
-                return ms.ToArray();
-            }
+        private static byte[] ReadFully(Stream input) {
+            using var ms = new MemoryStream();
+            byte[] buffer = new byte[81920];
+            int read;
+            while ((read = input.Read(buffer, 0, buffer.Length)) != 0)
+                ms.Write(buffer, 0, read);
+            return ms.ToArray();
         }
     }
 }
