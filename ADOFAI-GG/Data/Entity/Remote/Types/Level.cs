@@ -4,13 +4,13 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using TinyJSON.Types;
-using ADOFAI_GG.Components.Scenes;
 using ADOFAI_GG.Utils;
 using MelonLoader;
 using RDTools;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+using ADOFAI_GG.Presentation.View.Scene;
 
 namespace ADOFAI_GG.Data.Entity.Remote.Types {
 	public class Level {
@@ -60,8 +60,8 @@ namespace ADOFAI_GG.Data.Entity.Remote.Types {
 
 
 		public static Level FromJson(Variant obj) {
-			var tags = (from tag in (ProxyArray) obj["tags"]
-				select new Tag(TagType.Level, tag["id"].ToInt32(CultureInfo.InvariantCulture))).ToArray();
+			//var tags = (from tag in (ProxyArray) obj["tags"]
+			//	select new Tag(TagType.Level, tag["id"].ToInt32(CultureInfo.InvariantCulture))).ToArray();
 
 			return new Level(
 				obj.GetOrNull("id")?.ToInt32(CultureInfo.InvariantCulture) ?? -1,
@@ -82,7 +82,7 @@ namespace ADOFAI_GG.Data.Entity.Remote.Types {
 				obj.GetOrNull("tiles")?.ToInt32(CultureInfo.InvariantCulture) ?? -1,
 				obj.GetOrNull("comments")?.ToInt32(CultureInfo.InvariantCulture) ?? -1,
 				obj.GetOrNull("likes")?.ToInt32(CultureInfo.InvariantCulture) ?? -1,
-				tags
+				null
 			);
 		}
 

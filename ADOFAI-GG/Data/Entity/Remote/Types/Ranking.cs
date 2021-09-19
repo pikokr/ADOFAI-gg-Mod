@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Threading.Tasks;
 using TinyJSON.Types;
 using ADOFAI_GG.Utils;
+using ADOFAI_GG.Data.Repository;
 
 namespace ADOFAI_GG.Data.Entity.Remote.Types {
     public class Ranking : Person {
@@ -29,7 +30,7 @@ namespace ADOFAI_GG.Data.Entity.Remote.Types {
         
         
         public new static async Task<Ranking> FromJson(Variant obj) {
-            var bestPlay = await Request.RequestPlayLog(obj["bestPlay"]["id"].ToInt32(CultureInfo.InvariantCulture));
+            var bestPlay = await PlayLogRepository.GetInstance().RequestPlayLog(obj["bestPlay"]["id"].ToInt32(CultureInfo.InvariantCulture));
 
             return new Ranking(
                 obj.GetOrNull("id").ToInt32(CultureInfo.InvariantCulture),

@@ -95,7 +95,6 @@ namespace TinyJSON
 		static readonly Type excludeAttrType = typeof(Exclude);
 		static readonly Type decodeAliasAttrType = typeof(DecodeAlias);
 
-
 		public static Variant Load( string json )
 		{
 			if (string.IsNullOrEmpty(json))

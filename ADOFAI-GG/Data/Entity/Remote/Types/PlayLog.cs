@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using TinyJSON.Types;
 using ADOFAI_GG.Utils;
 using Steamworks;
+using ADOFAI_GG.Data.Repository;
 
 namespace ADOFAI_GG.Data.Entity.Remote.Types {
     public class PlayLog {
@@ -39,10 +40,9 @@ namespace ADOFAI_GG.Data.Entity.Remote.Types {
             if (obj == null) return null;
             var levelId = obj["level"]["id"].ToInt32(CultureInfo.InvariantCulture);
             var playerId = obj["player"]["id"].ToInt32(CultureInfo.InvariantCulture);
-            var level = await Request.RequestLevel(obj["level"]["id"].ToInt32(CultureInfo.InvariantCulture));
-            var player = await  Request.RequestPerson(obj["player"]["id"].ToInt32(CultureInfo.InvariantCulture));
-            var timeString =
-                obj["timestamp"].ToString(CultureInfo.InvariantCulture).Split('T');
+            var level = await LevelRepository.GetInstance().RequestLevel(obj["level"]["id"].ToInt32(CultureInfo.InvariantCulture));
+            var player = await PersonRepository.GetInstance().RequestPerson(obj["player"]["id"].ToInt32(CultureInfo.InvariantCulture));
+            var timeString = obj["timestamp"].ToString(CultureInfo.InvariantCulture).Split('T');
             var date = timeString[0].Split('-');
             var time = timeString[1].Split(':');
             var timeStamp = new DateTime(

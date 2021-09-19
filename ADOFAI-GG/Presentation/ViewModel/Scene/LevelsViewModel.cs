@@ -1,11 +1,11 @@
 ﻿using ADOFAI_GG.Data.Entity.Remote;
+using ADOFAI_GG.Data.Entity.Remote.Filters;
+using ADOFAI_GG.Data.Entity.Remote.SortOrder;
+using ADOFAI_GG.Data.Entity.Remote.Types;
 using ADOFAI_GG.Data.Repository;
-using ADOFAI_GG.Domain.Model.Levels;
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
-using MelonLoader;
 using System;
-using System.Collections.Generic;
 using UniRx;
 
 namespace ADOFAI_GG.Presentation.ViewModel.Scene
@@ -24,23 +24,25 @@ namespace ADOFAI_GG.Presentation.ViewModel.Scene
             return instance;
         }
 
-        private const int PAGE_SIZE = 5;
+        private const int PAGE_SIZE = 50;
 
 
         private readonly LevelRepository levelRepository;
 
-        private readonly AsyncReactiveProperty<List<Level>> levels;
+        private readonly ReactiveCollection<Level> levels;
         private readonly AsyncReactiveProperty<string> searchQuery;
         private readonly AsyncReactiveProperty<int> page;
         private readonly AsyncReactiveProperty<int> count;
         private readonly IUniTaskAsyncEnumerable<int> maxPage;
         private readonly IUniTaskAsyncEnumerable<Tuple<int, int>> currentPageInfo;
 
+        private bool blockLoading = false;
+
         protected LevelsViewModel(LevelRepository levelRepository)
         {
             this.levelRepository = levelRepository;
             
-            this.levels = new AsyncReactiveProperty<List<Level>>(null);
+            this.levels = new ReactiveCollection<Level>();
             this.searchQuery = new AsyncReactiveProperty<string>("");
             this.page = new AsyncReactiveProperty<int>(0);
             this.count = new AsyncReactiveProperty<int>(0);
@@ -51,26 +53,55 @@ namespace ADOFAI_GG.Presentation.ViewModel.Scene
             this.currentPageInfo = this.page.CombineLatest(maxPage, Tuple.Create);
         }
         
-        public void FetchLevels()
+        public void ClearLevels()
         {
-            levels.Value = null;
+            levels.Clear();
+            page.Value = 0;
+        }
+
+        public void FetchNextPage()
+        {
+            if (blockLoading) return;
+            blockLoading = true;
+
             UniTask task = UniTask.RunOnThreadPool(async () =>
             {
                 // Worker thread
-                LevelSearchResult result = await levelRepository.Search(page.Value, PAGE_SIZE, searchQuery.Value, "RECENT_DESC");
-                
-                // Main thread
+                LevelFilter filter = new LevelFilter(page.Value * PAGE_SIZE, PAGE_SIZE)
+                    .QueryTitle(searchQuery.Value)
+                    .QueryCreator(searchQuery.Value)
+                    .QueryArtist(searchQuery.Value)
+                    .Sort(LevelsSortOrder.RECENT_DESC);
+
+                var tuple = await levelRepository.RequestLevels(filter);
+                if (!tuple.HasValue)
+                {
+                    blockLoading = false;
+                    return;
+                }
+
                 await UniTask.SwitchToMainThread();
 
-                // update count & levels value
-                count.Value = result.count;
-                levels.Value = result.results;
+                page.Value++;
+
+                count.Value = tuple.Value.Item2;
+                foreach (Level level in tuple.Value.Item1)
+                {
+                    levels.Add(level);
+                }
+
+                blockLoading = false;
             });
         }
 
-        public IObservable<List<Level>> GetLevels()
+        public int GetLoadedLevelAmount()
         {
-            return levels.ToObservable();
+            return levels.Count;
+        }
+
+        public ReactiveCollection<Level> GetLevels()
+        {
+            return levels;
         }
 
         public AsyncReactiveProperty<string> GetSearchQuery()

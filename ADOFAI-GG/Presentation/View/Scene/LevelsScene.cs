@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using ADOFAI_GG.Domain.Model.Levels;
 using ADOFAI_GG.Presentation.ViewModel.Scene;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,28 +7,28 @@ using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
 using UniRx;
+using System.Collections;
+using ADOFAI_GG.Data.Entity.Remote.Types;
 
 namespace ADOFAI_GG.Presentation.View.Scene
 {
     public class LevelsScene : SceneBase
     {
+        public static bool OpenedByThisScene;
+        public static int SelectedLevelID;
+
+        public static LevelsScene Instance => _instance;
+        private static LevelsScene _instance;
 
         private LevelsViewModel viewModel;
 
         private List<GameObject> levelObjectList = new List<GameObject>();
 
-        private Button prevButton;
-        private Button nextButton;
-        private Text paginationNumber;
+        public Transform levelsParent;
+        public ScrollRect levelScrollRect;
+        public RectTransform levelScrollHandle;
 
-        private Transform content => root.transform.GetChild(1);
-
-        private Transform levelList;
-        private GameObject levelToInstantiate;
-
-        private GameObject loadingMessage;
-
-        private Image searchButton;
+        private Image searchButtonImage;
 
         public static void Init(UnityEngine.SceneManagement.Scene scn, GameObject root)
         {
@@ -38,132 +36,145 @@ namespace ADOFAI_GG.Presentation.View.Scene
             obj.GetOrAddComponent<LevelsScene>().root = root;
         }
 
+        private void Awake()
+        {
+            if (Instance != null)
+            {
+                Destroy(gameObject);
+            }
+            _instance = this;
+        }
+
         private void Start()
         {
             viewModel = LevelsViewModel.getInstance();
 
-            var t = root.transform;
-            var buttons = t.GetChild(0).GetChild(1);
+            var buttons = root.transform.GetChild(0).GetChild(1);
             var exitButton = buttons.GetChild(0).gameObject.GetComponent<Button>();
-            var serachButton = buttons.GetChild(1).gameObject.GetComponent<Button>();
+            var searchButton = buttons.GetChild(1).gameObject.GetComponent<Button>();
+
+            var content = root.transform.GetChild(1);
+
+            var searchTransform = content.GetChild(3);
+            var searchOverlay = searchTransform.GetChild(0);
+            var searchOverlayButton = searchOverlay.GetComponent<Button>();
+            var searchInput = searchTransform.GetChild(1).GetComponent<InputField>();
+
+            searchButtonImage = root.transform.GetChild(0).GetChild(1).GetChild(1).GetChild(1).GetComponent<Image>();
+            
+            var pagination = content.GetChild(1);
+            levelScrollRect = GameObject.Find("InfinityScroll").GetComponent<ScrollRect>();
+            levelsParent = levelScrollRect.transform.GetChild(0).GetChild(0);
+            levelScrollHandle = levelScrollRect.transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<RectTransform>();
+
+
             exitButton.onClick.AddListener(() => { SceneManager.LoadScene("ADOFAIGG_MAIN"); });
-
-
-            var searchT = content.GetChild(2);
-
-            var searchOverlay = searchT.GetChild(0);
-
-            var searchInput = searchT.GetChild(1).GetComponent<InputField>();
 
             searchInput.onEndEdit.AddListener(query =>
             {
                 viewModel.GetSearchQuery().Value = query;
-                searchT.gameObject.SetActive(false);
-                UpdateLevels();
+                searchTransform.gameObject.SetActive(false);
+                viewModel.ClearLevels();
             });
 
-            searchOverlay.GetComponent<Button>().onClick.AddListener(() => { searchT.gameObject.SetActive(false); });
-
-            serachButton.onClick.AddListener(() => { searchT.gameObject.SetActive(true); });
-
-            var pagination = content.GetChild(1);
-
-            prevButton = pagination.GetChild(0).GetComponent<Button>();
-            nextButton = pagination.GetChild(2).GetComponent<Button>();
-            paginationNumber = pagination.GetChild(1).GetChild(0).GetComponent<Text>();
-
-            prevButton.interactable = false;
-            nextButton.interactable = false;
-
-
-            prevButton.onClick.AddListener(() =>
-            {
-                prevButton.interactable = false;
-                nextButton.interactable = false;
-                viewModel.GetPage().Value -= 1;
-                UpdateLevels();
-            });
-
-            nextButton.onClick.AddListener(() =>
-            {
-                prevButton.interactable = false;
-                nextButton.interactable = false;
-                viewModel.GetPage().Value += 1;
-                UpdateLevels();
-            });
-
-            searchButton = root.transform.GetChild(0).GetChild(1).GetChild(1).GetChild(1).GetComponent<Image>();
+            searchOverlayButton.onClick.AddListener(() => { searchTransform.gameObject.SetActive(false); });
+            searchButton.onClick.AddListener(() => { searchTransform.gameObject.SetActive(true); });
 
 
             viewModel.GetSearchQuery().ToObservable().Subscribe(value =>
             {
-                searchButton.color = value.Length == 0 ? Color.white : new Color(0, 125, 255, 255);
+                searchButtonImage.color = value.Length == 0 ? Color.white : new Color(0, 125, 255, 255);
             });
 
-            levelList = content.GetChild(0);
-            levelToInstantiate = levelList.GetChild(0).gameObject;
-            
-            viewModel.GetCurrentPageInfo().Subscribe(pageInfo =>
+
+            viewModel.GetLevels().ObserveAdd().Subscribe(addEvent =>
             {
-                int page = pageInfo.Item1;
-                int maxPage = pageInfo.Item2;
-
-                paginationNumber.text = $"{page + 1} / {maxPage}";
-                prevButton.interactable = page != 0;
-                nextButton.interactable = page != maxPage - 1;
+                if (addEvent.Value == null) return;
+                InstantiateLevel(addEvent.Value);
             });
-
-
-            loadingMessage = content.GetChild(0).GetChild(1).gameObject;
-
-            viewModel.GetLevels().ObserveOnMainThread().Subscribe(levels =>
+            viewModel.GetLevels().ObserveRemove().Subscribe(removeEvent =>
             {
-                loadingMessage.SetActive(false);
-                if (levels == null) return;
-                foreach (Level level in levels)
-                {
-                    instantiateLevel(level);
-                }
-                
+                GameObject gameObject = levelObjectList[removeEvent.Index];
+                levelObjectList.RemoveAt(removeEvent.Index);
+                GameObject.Destroy(gameObject);
             });
-            
-            UpdateLevels();
+
+            viewModel.FetchNextPage();
         }
-        
-        private void UpdateLevels()
+
+        public void Update()
         {
-            foreach (var o in levelObjectList)
+            if (levelScrollHandle.anchorMin.y <= 5.0f / viewModel.GetLoadedLevelAmount())
             {
-                GameObject.Destroy(o);
+                viewModel.FetchNextPage();
             }
-            levelObjectList.Clear();
-
-            loadingMessage.SetActive(true);
-            viewModel.FetchLevels();
         }
 
-        private void instantiateLevel(Level level)
+        public IEnumerator Refresh()
         {
-            var o = GameObject.Instantiate(levelToInstantiate, levelList);
+            foreach (object objects in levelsParent)
+            {
+                yield return null;
+            }
+        }
+
+        private void InstantiateLevel(Level level)
+        {
+            var o = Instantiate(Assets.LevelPrefab, levelsParent);
             var t = o.transform;
             var icon = t.GetChild(0);
 
             var iconSprite =
-                Assets.Bundle.LoadAsset<Sprite>($"Assets/Images/difficultyIcons/{level.difficulty}.png");
+                Assets.Bundle.LoadAsset<Sprite>($"Assets/Images/difficultyIcons/{level.Difficulty}.png");
 
             icon.gameObject.GetComponent<Image>().sprite = iconSprite;
 
-            t.GetChild(1).GetComponent<Text>().text = String.Join(" & ", level.artists);
-            t.GetChild(2).GetComponent<Text>().text = level.song;
-            t.GetChild(4).GetComponent<Text>().text = String.Join(" & ", level.creators);
+            t.GetChild(1).GetComponent<Text>().text = String.Join(" & ", level.Artists);
+            t.GetChild(2).GetComponent<Text>().text = level.Song;
+            t.GetChild(4).GetComponent<Text>().text = String.Join(" & ", level.Creators);
             t.GetChild(6).GetComponent<Text>().text =
-                level.minBpm.ToString(CultureInfo.InvariantCulture) ==
-                level.maxBpm.ToString(CultureInfo.InvariantCulture)
-                    ? $"{level.minBpm}"
-                    : $"{level.minBpm}-{level.maxBpm}";
-            t.GetChild(8).GetComponent<Text>().text = level.tiles.ToString();
-            t.GetChild(10).GetComponent<Text>().text = level.comments.ToString();
-            t.GetChild(12).GetComponent<Text>().text = level.comments.ToString();
+                level.MinBPM.Equals(level.MaxBPM) ? $"{level.MinBPM}" : $"{level.MinBPM}-{level.MaxBPM}";
+            t.GetChild(8).GetComponent<Text>().text = level.Tiles.ToString();
+            t.GetChild(10).GetComponent<Text>().text = level.Comments.ToString();
+            t.GetChild(12).GetComponent<Text>().text = level.Comments.ToString();
+
+            var buttons = t.GetChild(13);
+            var downloadOrPlay = buttons.GetChild(0);
+            var playWorkshop = buttons.GetChild(1);
+            var btnDownload = downloadOrPlay.GetComponent<Button>();
+            btnDownload.interactable = true;
+
+            if (level.CheckLevelExists())
+            {
+                downloadOrPlay.GetChild(0).gameObject.SetActive(false);
+                downloadOrPlay.GetChild(1).gameObject.SetActive(true);
+                btnDownload.onClick.AddListener(() => {
+                    OpenedByThisScene = true;
+                    ConstObject.Instance.StartCoroutine(level.LoadLevel());
+                });
+                buttons.GetChild(2).gameObject.SetActive(true);
+                buttons.GetChild(2).GetComponent<Button>().onClick.AddListener(level.DeleteLevel);
+            }
+            else
+            {
+                downloadOrPlay.GetChild(0).gameObject.SetActive(true);
+                downloadOrPlay.GetChild(1).gameObject.SetActive(false);
+
+                btnDownload.onClick.AddListener(() => {
+                    ConstObject.Instance.StartCoroutine(level.DownloadLevel());
+                    var img = downloadOrPlay.GetComponent<Image>();
+                    btnDownload.interactable = false;
+                });
+                if (level.Download == null ||
+                    level.Download.Contains("cdn.discordapp.com/attachments") ||
+                    level.Download.Contains("www.mediafire.com/file/"))
+                {
+                    btnDownload.interactable = false;
+                }
+
+                buttons.GetChild(2).gameObject.SetActive(false);
+            }
+
             levelObjectList.Add(o);
             o.SetActive(true);
         }

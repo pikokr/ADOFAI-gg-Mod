@@ -1,4 +1,4 @@
-using ADOFAI_GG.Components.Scenes;
+using ADOFAI_GG.Presentation.View.Scene;
 using HarmonyLib;
 
 namespace ADOFAI_GG.Presentation.Patches.Controller {

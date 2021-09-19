@@ -398,6 +398,10 @@
     <Compile Include="Assets.cs" />
     <Compile Include="Data\Entity\Remote\LevelSearchResult.cs" />
     <Compile Include="Data\Repository\LevelRepository.cs" />
+    <Compile Include="Data\Repository\PersonRepository.cs" />
+    <Compile Include="Data\Repository\PlayLogRepository.cs" />
+    <Compile Include="Data\Repository\RankingRepository.cs" />
+    <Compile Include="Data\Repository\TagRepository.cs" />
     <Compile Include="Domain\Model\Levels\Level.cs" />
     <Compile Include="Presentation\Patches\Intro\IntroButtonPatches.cs" />
     <Compile Include="Presentation\ViewModel\Scene\LevelsViewModel.cs" />
@@ -414,7 +418,6 @@
     <Compile Include="Data\Entity\Remote\Filters\PlayLogsFilter.cs" />
     <Compile Include="Data\Entity\Remote\Filters\RankingFilter.cs" />
     <Compile Include="Data\Entity\Remote\Filters\SearchFilter.cs" />
-    <Compile Include="API\Request.cs" />
     <Compile Include="API\RequestCo.cs" />
     <Compile Include="Data\Entity\Remote\SortOrder\LevelsSortOrder.cs" />
     <Compile Include="Data\Entity\Remote\SortOrder\PersonsSortOrder.cs" />
@@ -436,7 +439,6 @@
     <Compile Include="Data\Entity\Remote\Types\Tag.cs" />
     <Compile Include="Data\Entity\Remote\Types\Ranking.cs" />
     <Compile Include="Components\Scenes\LevelsScene.cs" />
-    <Compile Include="Components\LevelButton.cs" />
     <Compile Include="ConstObject.cs" />
     <Compile Include="Initalizer.cs" />
     <Compile Include="InitAttribute.cs" />

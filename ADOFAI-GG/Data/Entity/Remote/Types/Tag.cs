@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ADOFAI_GG.Data.Repository;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ADOFAI_GG.Data.Entity.Remote.Types {
@@ -12,7 +13,7 @@ namespace ADOFAI_GG.Data.Entity.Remote.Types {
         public readonly string name;
         private static Dictionary<TagType, Dictionary<int, string>> _tags;
 
-        [Init] public static void LoadTags() => _tags = Request.RequestTags().Result;
+        //[Init] public static void LoadTags() => _tags = TagRepository.GetInstance().RequestTags().Result;
         
         public Tag(TagType tagType, int id) {
             this.tagType = tagType;
