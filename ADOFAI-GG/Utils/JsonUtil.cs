@@ -1,4 +1,4 @@
-﻿using MelonLoader.TinyJSON;
+﻿using TinyJSON;
 
 namespace ADOFAI_GG.Utils
 {

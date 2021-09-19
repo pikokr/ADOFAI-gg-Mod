@@ -4,10 +4,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using TinyJSON.Types;
-#if ENABLE_IL2CPP
-using UnityEngine.Scripting;
-#endif
-
 
 namespace TinyJSON
 {
@@ -92,9 +88,6 @@ namespace TinyJSON
 	}
 
 
-#if ENABLE_IL2CPP
-	[Preserve]
-#endif
 	// ReSharper disable once InconsistentNaming
 	public static class JSON
 	{
@@ -105,7 +98,7 @@ namespace TinyJSON
 
 		public static Variant Load( string json )
 		{
-			if (json == null)
+			if (string.IsNullOrEmpty(json))
 			{
 				throw new ArgumentNullException( "json" );
 			}
@@ -151,6 +144,16 @@ namespace TinyJSON
 		}
 
 
+		public static void Populate<T>( Variant data, T item ) where T : class
+		{
+			if (item == null)
+			{
+				throw new ArgumentNullException( nameof(item) );
+			}
+			DecodeFields( data, ref item );
+		}
+
+
 		static readonly Dictionary<string, Type> typeCache = new Dictionary<string, Type>();
 
 		static Type FindType( string fullName )
@@ -179,10 +182,6 @@ namespace TinyJSON
 			return null;
 		}
 
-
-#if ENABLE_IL2CPP
-		[Preserve]
-#endif
 		static T DecodeType<T>( Variant data )
 		{
 			if (data == null)
@@ -294,9 +293,22 @@ namespace TinyJSON
 				instance = Activator.CreateInstance<T>();
 			}
 
-
 			// Now decode fields and properties.
-			foreach (var pair in (ProxyObject) data)
+			DecodeFields( data, ref instance );
+
+			return instance;
+		}
+
+		static void DecodeFields<T>( Variant data, ref T instance )
+		{
+			var type = typeof(T);
+			var proxyObject = data as ProxyObject;
+			if (proxyObject == null)
+			{
+				throw new InvalidCastException( "ProxyObject expected when decoding into '" + type.FullName + "'." );
+			}
+
+			foreach (var pair in proxyObject)
 			{
 				var field = type.GetField( pair.Key, instanceBindingFlags );
 
@@ -405,14 +417,8 @@ namespace TinyJSON
 					method.Invoke( instance, method.GetParameters().Length == 0 ? null : new object[] { data } );
 				}
 			}
-
-			return instance;
 		}
 
-
-#if ENABLE_IL2CPP
-		[Preserve]
-#endif
 		// ReSharper disable once UnusedMethodReturnValue.Local
 		static List<T> DecodeList<T>( Variant data )
 		{
@@ -432,10 +438,6 @@ namespace TinyJSON
 			return list;
 		}
 
-
-#if ENABLE_IL2CPP
-		[Preserve]
-#endif
 		// ReSharper disable once UnusedMethodReturnValue.Local
 		static Dictionary<TKey, TValue> DecodeDictionary<TKey, TValue>( Variant data )
 		{
@@ -458,10 +460,6 @@ namespace TinyJSON
 			return dict;
 		}
 
-
-#if ENABLE_IL2CPP
-		[Preserve]
-#endif
 		// ReSharper disable once UnusedMethodReturnValue.Local
 		static T[] DecodeArray<T>( Variant data )
 		{
@@ -483,10 +481,6 @@ namespace TinyJSON
 			return array;
 		}
 
-
-#if ENABLE_IL2CPP
-		[Preserve]
-#endif
 		// ReSharper disable once UnusedMember.Local
 		static void DecodeMultiRankArray<T>( ProxyArray arrayData, Array array, int arrayRank, int[] indices )
 		{
@@ -514,10 +508,6 @@ namespace TinyJSON
 		static readonly MethodInfo decodeArrayMethod = typeof(JSON).GetMethod( "DecodeArray", staticBindingFlags );
 		static readonly MethodInfo decodeMultiRankArrayMethod = typeof(JSON).GetMethod( "DecodeMultiRankArray", staticBindingFlags );
 
-
-#if ENABLE_IL2CPP
-		[Preserve]
-#endif
 		// ReSharper disable once InconsistentNaming
 		public static void SupportTypeForAOT<T>()
 		{
@@ -537,10 +527,6 @@ namespace TinyJSON
 			DecodeDictionary<String, T>( null );
 		}
 
-
-#if ENABLE_IL2CPP
-		[Preserve]
-#endif
 		// ReSharper disable once InconsistentNaming
 		// ReSharper disable once UnusedMember.Local
 		static void SupportValueTypesForAOT()

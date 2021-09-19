@@ -1,6 +1,6 @@
-using System;
 using System.IO;
 using System.Text;
+using System;
 using TinyJSON.Types;
 
 namespace TinyJSON

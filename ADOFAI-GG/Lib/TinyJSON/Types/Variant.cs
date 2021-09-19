@@ -23,6 +23,12 @@ namespace TinyJSON.Types
 		}
 
 
+		public void Populate<T>( T item ) where T : class
+		{
+			JSON.Populate( this, item );
+		}
+
+
 		// ReSharper disable once InconsistentNaming
 		// ReSharper disable once UnusedMember.Global
 		public string ToJSON()
@@ -239,10 +245,6 @@ namespace TinyJSON.Types
 		public static implicit operator Guid( Variant variant )
 		{
 			return new Guid( variant.ToString( FormatProvider ) );
-		}
-
-		public object ToInt32() {
-			throw new NotImplementedException();
 		}
 	}
 }

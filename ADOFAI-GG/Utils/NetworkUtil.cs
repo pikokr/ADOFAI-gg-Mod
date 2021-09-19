@@ -1,6 +1,4 @@
 ﻿using Cysharp.Threading.Tasks;
-using MelonLoader;
-using MelonLoader.TinyJSON;
 using System;
 using System.Collections.Specialized;
 using System.Net.Http;
