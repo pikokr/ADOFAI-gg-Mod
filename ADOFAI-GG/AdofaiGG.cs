@@ -1,3 +1,4 @@
+using ADOFAI_GG.Utils.Initializer;
 using Cysharp.Threading.Tasks;
 using MelonLoader;
 using UnityEngine.LowLevel;

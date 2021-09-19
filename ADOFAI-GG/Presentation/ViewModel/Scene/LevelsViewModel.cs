@@ -3,6 +3,7 @@ using ADOFAI_GG.Data.Entity.Remote.Filters;
 using ADOFAI_GG.Data.Entity.Remote.SortOrder;
 using ADOFAI_GG.Data.Entity.Remote.Types;
 using ADOFAI_GG.Data.Repository;
+using ADOFAI_GG.Presentation.Model;
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
 using System;
@@ -19,7 +20,8 @@ namespace ADOFAI_GG.Presentation.ViewModel.Scene
             if (instance == null)
             {
                 instance = new LevelsViewModel(
-                    LevelRepository.GetInstance());
+                    LevelRepository.GetInstance(),
+                    LevelFileRepository.GetInstance());
             }
             return instance;
         }
@@ -28,8 +30,9 @@ namespace ADOFAI_GG.Presentation.ViewModel.Scene
 
 
         private readonly LevelRepository levelRepository;
+        private readonly LevelFileRepository levelFileRepository;
 
-        private readonly ReactiveCollection<Level> levels;
+        private readonly ReactiveCollection<LevelModel> levels;
         private readonly AsyncReactiveProperty<string> searchQuery;
         private readonly AsyncReactiveProperty<int> page;
         private readonly AsyncReactiveProperty<int> count;
@@ -38,11 +41,12 @@ namespace ADOFAI_GG.Presentation.ViewModel.Scene
 
         private bool blockLoading = false;
 
-        protected LevelsViewModel(LevelRepository levelRepository)
+        protected LevelsViewModel(LevelRepository levelRepository, LevelFileRepository levelFileRepository)
         {
             this.levelRepository = levelRepository;
+            this.levelFileRepository = levelFileRepository;
             
-            this.levels = new ReactiveCollection<Level>();
+            this.levels = new ReactiveCollection<LevelModel>();
             this.searchQuery = new AsyncReactiveProperty<string>("");
             this.page = new AsyncReactiveProperty<int>(0);
             this.count = new AsyncReactiveProperty<int>(0);
@@ -55,7 +59,10 @@ namespace ADOFAI_GG.Presentation.ViewModel.Scene
         
         public void ClearLevels()
         {
-            levels.Clear();
+            while (levels.Count > 0)
+            {
+                levels.RemoveAt(0);
+            }
             page.Value = 0;
         }
 
@@ -87,11 +94,37 @@ namespace ADOFAI_GG.Presentation.ViewModel.Scene
                 count.Value = tuple.Value.Item2;
                 foreach (Level level in tuple.Value.Item1)
                 {
-                    levels.Add(level);
+                    levels.Add(GetLevelModel(level));
                 }
 
                 blockLoading = false;
             });
+        }
+
+        public void DeleteLevel(int idx)
+        {
+            levelFileRepository.DeleteLevel(levels[idx].level.Id);
+            levels[idx] = GetLevelModel(levels[idx].level);
+        }
+
+        public void DownloadLevel(int idx)
+        {
+            UniTask.RunOnThreadPool(async () =>
+            {
+                // warning : this can cause problem in future.
+                // if level list is reset while downloading level,
+                // that can cause data mismatch or ArgumentOutOfRangeException
+                bool success = await levelFileRepository.DownloadLevel(levels[idx].level);
+                await UniTask.SwitchToMainThread();
+                levels[idx] = GetLevelModel(levels[idx].level);
+            });
+        }
+
+        private LevelModel GetLevelModel(Level level)
+        {
+            return new LevelModel(level, 
+                levelFileRepository.IsLevelExists(level.Id),
+                levelFileRepository.isDownloadable(level.Download));
         }
 
         public int GetLoadedLevelAmount()
@@ -99,7 +132,7 @@ namespace ADOFAI_GG.Presentation.ViewModel.Scene
             return levels.Count;
         }
 
-        public ReactiveCollection<Level> GetLevels()
+        public ReactiveCollection<LevelModel> GetLevels()
         {
             return levels;
         }

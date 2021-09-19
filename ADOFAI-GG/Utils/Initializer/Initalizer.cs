@@ -6,7 +6,7 @@ using HarmonyLib;
 using MelonLoader;
 using AccessTools = HarmonyLib.AccessTools;
 
-namespace ADOFAI_GG {
+namespace ADOFAI_GG.Utils.Initializer {
     public static class Initalizer {
         public static void Init()
         {

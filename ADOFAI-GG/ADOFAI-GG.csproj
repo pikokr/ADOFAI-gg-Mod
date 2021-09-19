@@ -397,12 +397,16 @@
     <Compile Include="AdofaiGG.cs" />
     <Compile Include="Assets.cs" />
     <Compile Include="Data\Entity\Remote\LevelSearchResult.cs" />
+    <Compile Include="Data\Entity\Remote\Types\IdNameDto.cs" />
+    <Compile Include="Data\Entity\Remote\Types\SimplePlayLogWithLevel.cs" />
+    <Compile Include="Data\Repository\LevelFileRepository.cs" />
     <Compile Include="Data\Repository\LevelRepository.cs" />
     <Compile Include="Data\Repository\PersonRepository.cs" />
     <Compile Include="Data\Repository\PlayLogRepository.cs" />
     <Compile Include="Data\Repository\RankingRepository.cs" />
     <Compile Include="Data\Repository\TagRepository.cs" />
     <Compile Include="Domain\Model\Levels\Level.cs" />
+    <Compile Include="Presentation\Model\LevelModel.cs" />
     <Compile Include="Presentation\Patches\Intro\IntroButtonPatches.cs" />
     <Compile Include="Presentation\ViewModel\Scene\LevelsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -410,6 +414,7 @@
     <Compile Include="Presentation\View\Scene\MainScene.cs" />
     <Compile Include="Presentation\View\Scene\SceneBase.cs" />
     <Compile Include="Utils\Constants.cs" />
+    <Compile Include="Utils\FileUtil.cs" />
     <Compile Include="Utils\JsonUtil.cs" />
     <Compile Include="Utils\NetworkUtil.cs" />
     <Compile Include="Utils\SceneEvents.cs" />
@@ -418,7 +423,6 @@
     <Compile Include="Data\Entity\Remote\Filters\PlayLogsFilter.cs" />
     <Compile Include="Data\Entity\Remote\Filters\RankingFilter.cs" />
     <Compile Include="Data\Entity\Remote\Filters\SearchFilter.cs" />
-    <Compile Include="API\RequestCo.cs" />
     <Compile Include="Data\Entity\Remote\SortOrder\LevelsSortOrder.cs" />
     <Compile Include="Data\Entity\Remote\SortOrder\PersonsSortOrder.cs" />
     <Compile Include="Data\Entity\Remote\SortOrder\PlayLogsSortOrder.cs" />
@@ -438,20 +442,18 @@
     <Compile Include="Data\Entity\Remote\Types\PlayLog.cs" />
     <Compile Include="Data\Entity\Remote\Types\Tag.cs" />
     <Compile Include="Data\Entity\Remote\Types\Ranking.cs" />
-    <Compile Include="Components\Scenes\LevelsScene.cs" />
-    <Compile Include="ConstObject.cs" />
-    <Compile Include="Initalizer.cs" />
-    <Compile Include="InitAttribute.cs" />
-    <Compile Include="LateInitAttribute.cs" />
+    <Compile Include="Utils\Initializer\Initalizer.cs" />
+    <Compile Include="Utils\Initializer\InitAttribute.cs" />
+    <Compile Include="Utils\Initializer\LateInitAttribute.cs" />
     <Compile Include="Presentation\Patches\Controller\QuitToMainMenuPatch.cs" />
-    <Compile Include="Utils\CoroutineManager.cs" />
-    <Compile Include="Utils\Misc.cs" />
+    <Compile Include="Utils\DeconstructExtensions.cs" />
     <Compile Include="Lib\ReflectionExtension.cs" />
   </ItemGroup>
   <ItemGroup Label="Assets">
     <EmbeddedResource Include="Resources/assets.bundle" />
     <EmbeddedResource Include="Resources/scenes.bundle" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.

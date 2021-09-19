@@ -24,5 +24,6 @@ namespace ADOFAI_GG.Data.Entity.Remote.Types {
                 obj.GetOrNull("totalPp")?.ToDouble(CultureInfo.InvariantCulture) ?? -1
             );
         }
+
     }
 }

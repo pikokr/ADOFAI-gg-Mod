@@ -8,14 +8,14 @@ using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
 using UniRx;
 using System.Collections;
-using ADOFAI_GG.Data.Entity.Remote.Types;
+using ADOFAI_GG.Data.Repository;
+using ADOFAI_GG.Presentation.Model;
 
 namespace ADOFAI_GG.Presentation.View.Scene
 {
     public class LevelsScene : SceneBase
     {
         public static bool OpenedByThisScene;
-        public static int SelectedLevelID;
 
         public static LevelsScene Instance => _instance;
         private static LevelsScene _instance;
@@ -89,14 +89,16 @@ namespace ADOFAI_GG.Presentation.View.Scene
 
             viewModel.GetLevels().ObserveAdd().Subscribe(addEvent =>
             {
-                if (addEvent.Value == null) return;
-                InstantiateLevel(addEvent.Value);
+                InstantiateLevel(addEvent.Value, addEvent.Index);
+            });
+            viewModel.GetLevels().ObserveReplace().Subscribe(replaceEvent =>
+            {
+                UpdateLevel(levelObjectList[replaceEvent.Index], replaceEvent.NewValue, replaceEvent.Index);
             });
             viewModel.GetLevels().ObserveRemove().Subscribe(removeEvent =>
             {
-                GameObject gameObject = levelObjectList[removeEvent.Index];
+                Destroy(levelObjectList[removeEvent.Index]);
                 levelObjectList.RemoveAt(removeEvent.Index);
-                GameObject.Destroy(gameObject);
             });
 
             viewModel.FetchNextPage();
@@ -110,19 +112,26 @@ namespace ADOFAI_GG.Presentation.View.Scene
             }
         }
 
-        public IEnumerator Refresh()
+        public void MoveToEditor(int id)
         {
-            foreach (object objects in levelsParent)
-            {
-                yield return null;
-            }
+            OpenedByThisScene = true;
+            bool success = LevelFileRepository.GetInstance().LoadLevel(id).Result;
         }
 
-        private void InstantiateLevel(Level level)
+        private void InstantiateLevel(LevelModel levelModel, int idx)
         {
             var o = Instantiate(Assets.LevelPrefab, levelsParent);
+            UpdateLevel(o, levelModel, idx);
+            levelObjectList.Add(o);
+            o.SetActive(true);
+        }
+
+        private void UpdateLevel(GameObject o, LevelModel levelModel, int idx)
+        {
             var t = o.transform;
             var icon = t.GetChild(0);
+
+            var level = levelModel.level;
 
             var iconSprite =
                 Assets.Bundle.LoadAsset<Sprite>($"Assets/Images/difficultyIcons/{level.Difficulty}.png");
@@ -144,39 +153,26 @@ namespace ADOFAI_GG.Presentation.View.Scene
             var btnDownload = downloadOrPlay.GetComponent<Button>();
             btnDownload.interactable = true;
 
-            if (level.CheckLevelExists())
+            if (levelModel.isLevelExists)
             {
                 downloadOrPlay.GetChild(0).gameObject.SetActive(false);
                 downloadOrPlay.GetChild(1).gameObject.SetActive(true);
-                btnDownload.onClick.AddListener(() => {
-                    OpenedByThisScene = true;
-                    ConstObject.Instance.StartCoroutine(level.LoadLevel());
-                });
                 buttons.GetChild(2).gameObject.SetActive(true);
-                buttons.GetChild(2).GetComponent<Button>().onClick.AddListener(level.DeleteLevel);
+                buttons.GetChild(2).GetComponent<Button>().onClick.AddListener(() => viewModel.DeleteLevel(idx));
+
+                btnDownload.onClick.AddListener(() => MoveToEditor(level.Id));
             }
             else
             {
                 downloadOrPlay.GetChild(0).gameObject.SetActive(true);
                 downloadOrPlay.GetChild(1).gameObject.SetActive(false);
-
-                btnDownload.onClick.AddListener(() => {
-                    ConstObject.Instance.StartCoroutine(level.DownloadLevel());
-                    var img = downloadOrPlay.GetComponent<Image>();
-                    btnDownload.interactable = false;
-                });
-                if (level.Download == null ||
-                    level.Download.Contains("cdn.discordapp.com/attachments") ||
-                    level.Download.Contains("www.mediafire.com/file/"))
-                {
-                    btnDownload.interactable = false;
-                }
-
                 buttons.GetChild(2).gameObject.SetActive(false);
-            }
 
-            levelObjectList.Add(o);
-            o.SetActive(true);
+                btnDownload.onClick.AddListener(() => viewModel.DownloadLevel(idx));
+
+                btnDownload.interactable = levelModel.canDownload;
+
+            }
         }
 
     }

@@ -34,7 +34,7 @@ namespace ADOFAI_GG.Data.Repository
 
             foreach (var playlog in (ProxyArray) results)
             {
-                result.Add(await PlayLog.FromJson(playlog));
+                result.Add(PlayLog.FromJson(playlog));
             }
 
             return (result, json["count"]);
@@ -44,7 +44,7 @@ namespace ADOFAI_GG.Data.Repository
         {
             var json = await NetworkUtil.GetJsonAsync($"api/v1/playLogs/{id}");
             if (json == null) return null;
-            return await PlayLog.FromJson(json);
+            return PlayLog.FromJson(json);
         }
     }
 }

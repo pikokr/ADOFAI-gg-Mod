@@ -33,7 +33,7 @@ namespace ADOFAI_GG.Data.Repository
 
             foreach (var rank in (ProxyArray) results)
             {
-                result.Add(await Ranking.FromJson(rank));
+                result.Add(Ranking.FromJson(rank));
             }
 
             return (result, json["count"]);

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Specialized;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TinyJSON;
 using TinyJSON.Types;
@@ -65,6 +66,24 @@ namespace ADOFAI_GG.Utils
 
             Variant variant = JSON.Load(result);
             return variant;
+        }
+
+        public static string GetDirectDownloadUrl(string url)
+        {
+            if (url.Contains("drive.google.com/file/d/"))
+            {
+                var pattern = "drive.google.com/file/d/.+?/";
+                var match = Regex.Match(url, pattern);
+                var id = match.Groups[0].Value.Substring(24).Replace("/", "");
+                return $"https://drive.google.com/uc?export=download&id={id}";
+            }
+
+            if (url.Contains("www.mediafire.com/file/"))
+            {
+
+            }
+
+            return url;
         }
 
 

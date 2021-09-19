@@ -1,3 +1,4 @@
+using ADOFAI_GG.Utils.Initializer;
 using System.IO;
 using UnityEngine;
 
@@ -9,10 +10,8 @@ namespace ADOFAI_GG
         public static GameObject LevelPrefab;
         [Init] public static void Init()
         {
-            Bundle = AssetBundle.LoadFromMemory(ReadFully(
-                typeof(AdofaiGG).Assembly.GetManifestResourceStream("ADOFAI_GG.Resources.assets.bundle")));
-            AssetBundle.LoadFromMemory(ReadFully(
-                typeof(AdofaiGG).Assembly.GetManifestResourceStream("ADOFAI_GG.Resources.scenes.bundle")));
+            Bundle = AssetBundle.LoadFromStream(typeof(AdofaiGG).Assembly.GetManifestResourceStream("ADOFAI_GG.Resources.assets.bundle"));
+            AssetBundle.LoadFromStream(typeof(AdofaiGG).Assembly.GetManifestResourceStream("ADOFAI_GG.Resources.scenes.bundle"));
 
             LevelPrefab = Bundle.LoadAsset<GameObject>("Level");
         }
