@@ -1,13 +1,17 @@
-using System;
-using ADOFAI_GG.Utils;
+using ADOFAI_GG.Utils.Initializer;
+using Cysharp.Threading.Tasks;
 using MelonLoader;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.LowLevel;
 
 namespace ADOFAI_GG
 {
-    public class AdofaiGG: MelonMod {
-        public override void OnApplicationLateStart() {
+    public class AdofaiGG: MelonMod
+    {
+        public override void OnApplicationStart()
+        {
+            PlayerLoopSystem playerLoopSystem = PlayerLoop.GetCurrentPlayerLoop();
+            PlayerLoopHelper.Initialize(ref playerLoopSystem);
+            PlayerLoop.SetPlayerLoop(playerLoopSystem);
             Initalizer.Init();
         }
 /*
