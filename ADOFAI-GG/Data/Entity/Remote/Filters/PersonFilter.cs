@@ -3,49 +3,24 @@
 namespace ADOFAI_GG.Data.Entity.Remote.Filters {
     public sealed class PersonFilter : SearchFilter {
         public PersonFilter(int offset, int amount) : base(offset, amount) { }
-        private string name {
-            get => (string) filters["name"];
-            set => filters["name"] = value;
+        public string name {
+            get => (string) Filters["name"];
+            set => Filters["name"] = value;
         }
         
-        private PersonsSortOrder? sort {
-            get => (PersonsSortOrder?) filters["sort"];
-            set => filters["sort"] = value;
+        public PersonsSortOrder? sort {
+            get => (PersonsSortOrder?) Filters["sort"];
+            set => Filters["sort"] = value;
         }
 
-        private double? minTotalPp {
-            get => (double?) filters["minTotalPp"];
-            set => filters["minTotalPp"] = value;
+        public double? minTotalPp {
+            get => (double?) Filters["minTotalPp"];
+            set => Filters["minTotalPp"] = value;
         }
 
-        private double? maxTotalPp {
-            get => (double?) filters["maxTotalPp"];
-            set => filters["maxTotalPp"] = value;
-        }
-
-        public PersonFilter Name(string value) {
-            name = value;
-            return this;
-        }
-        
-        public PersonFilter Sort(PersonsSortOrder value) {
-            sort = value;
-            return this;
-        }
-
-        public PersonFilter MinTotalPp(double value) {
-            minTotalPp = value;
-            return this;
-        }
-
-        public PersonFilter MaxTotalPp(double value) {
-            maxTotalPp = value;
-            return this;
-        }
-
-        public PersonFilter Custom(string key, object value) {
-            filters[key] = value;
-            return this;
+        public double? maxTotalPp {
+            get => (double?) Filters["maxTotalPp"];
+            set => Filters["maxTotalPp"] = value;
         }
     }
 }

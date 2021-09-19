@@ -9,41 +9,21 @@ namespace ADOFAI_GG.Data.Entity.Remote.Filters {
             this.offset = offset;
             this.amount = amount;
         }
-        
-        protected Dictionary<string, object> filters = new();
-        internal int offset {
-            get => (int) filters["offset"];
-            set => filters["offset"] = value;
+        protected readonly Dictionary<string, object> Filters = new();
+        public int offset {
+            get => (int) Filters["offset"];
+            set => Filters["offset"] = value;
         }
 
-        internal int amount {
-            get => (int) filters["amount"];
-            set => filters["amount"] = value;
+        public int amount {
+            get => (int) Filters["amount"];
+            set => Filters["amount"] = value;
         }
 
         public override string ToString() {
             var query = HttpUtility.ParseQueryString(string.Empty);
-            foreach ((string key, object value) in  filters) query.Add(key, $"{value}");
+            foreach ((string key, object value) in  Filters) query.Add(key, $"{value}");
             return query.ToString();
         }
-
     }
-
-    public static class SearchFilterExtension
-    {
-
-        public static T Offset<T>(this T filter, int value) where T : SearchFilter
-        {
-            filter.offset = value;
-            return filter;
-        }
-
-        public static T Amount<T>(this T filter, int value) where T : SearchFilter
-        {
-            filter.amount = value;
-            return filter;
-        }
-
-    }
-
 }

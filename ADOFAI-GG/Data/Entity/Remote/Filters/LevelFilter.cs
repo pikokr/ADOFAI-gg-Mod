@@ -10,155 +10,89 @@ namespace ADOFAI_GG.Data.Entity.Remote.Filters {
     public sealed class LevelFilter : SearchFilter {
         public LevelFilter(int offset, int amount) : base(offset, amount) { }
 
-        private List<Tag> includeTags = new();
-        private List<Tag> excludeTags = new();
-
-        private string queryTitle {
-            get => (string) filters["queryTitle"];
-            set => filters["queryTitle"] = value;
-        }
-
-        private string queryArtist {
-            get => (string) filters["queryArtist"];
-            set => filters["queryArtist"] = value;
-        }
-
-        private string queryCreator {
-            get => (string) filters["queryCreator"];
-            set => filters["queryCreator"] = value;
-        }
-
-        private LevelsSortOrder? sort {
-            get => (LevelsSortOrder?) filters["sort"];
-            set => filters["sort"] = value;
-        }
-
-        private byte? minDifficulty {
-            get => (byte?) filters["minDifficulty"];
-            set => filters["minDifficulty"] = value;
-        }
-
-        private byte? maxDifficulty {
-            get => (byte?) filters["maxDifficulty"];
-            set => filters["maxDifficulty"] = value;
-        }
-
-        private double? minBpm {
-            get => (double?) filters["minBpm"];
-            set => filters["minBpm"] = value;
-        }
-
-        private double? maxBpm {
-            get => (double?) filters["maxBpm"];
-            set => filters["maxBpm"] = value;
-        }
-
-        private int? minTiles {
-            get => (int?) filters["minTiles"];
-            set => filters["minTiles"] = value;
-        }
-
-        private int? maxTiles {
-            get => (int?) filters["maxTiles"];
-            set => filters["maxTiles"] = value;
-        }
-
-        private bool? showNotVerified {
-            get => (bool?) filters["showNotVerified"];
-            set => filters["showNotVerified"] = value;
-        }
-
-        private bool? showCensored {
-            get => (bool?) filters["showCensored"];
-            set => filters["showCensored"] = value;
-        }
-
-        public LevelFilter QueryTitle(string value) {
-            queryTitle = value;
-            return this;
-        }
-
-        public LevelFilter QueryArtist(string value) {
-            queryArtist = value;
-            return this;
-        }
-
-        public LevelFilter QueryCreator(string value) {
-            queryCreator = value;
-            return this;
-        }
-
-        public LevelFilter Sort(LevelsSortOrder value) {
-            sort = value;
-            return this;
-        }
-
-        public LevelFilter MinDifficulty(byte value) {
-            minDifficulty = value;
-            return this;
-        }
-
-        public LevelFilter MaxDifficulty(byte value) {
-            maxDifficulty = value;
-            return this;
-        }
-
-        public LevelFilter MinBpm(double value) {
-            minBpm = value;
-            return this;
-        }
-
-        public LevelFilter MaxBpm(double value) {
-            maxBpm = value;
-            return this;
-        }
-
-        public LevelFilter MinTiles(int value) {
-            minTiles = value;
-            return this;
-        }
-
-        public LevelFilter MaxTiles(int value) {
-            maxTiles = value;
-            return this;
-        }
-
-        public LevelFilter ShowNotVerified(bool value) {
-            showNotVerified = value;
-            return this;
-        }
-
-        public LevelFilter ShowCensored(bool value) {
-            showCensored = value;
-            return this;
-        }
-
-        public LevelFilter Include(params Tag[] value) {
-            foreach (var tag in value) {
-                includeTags.Add(tag);
-            }
-
-            return this;
+        private List<Tag> _includeTags = new();
+        private List<Tag> _excludeTags = new();
+        
+        public string query {
+            get => (string) Filters["query"];
+            set => Filters["query"] = value;
         }
         
-        public LevelFilter Exclude(params Tag[] value) {
-            foreach (var tag in value) {
-                excludeTags.Add(tag);
-            }
-
-            return this;
+        public string queryTitle {
+            get => (string) Filters["queryTitle"];
+            set => Filters["queryTitle"] = value;
         }
 
-        public LevelFilter Custom(string key, object value) {
-            filters[key] = value;
-            return this;
+        public string queryArtist {
+            get => (string) Filters["queryArtist"];
+            set => Filters["queryArtist"] = value;
+        }
+
+        public string queryCreator {
+            get => (string) Filters["queryCreator"];
+            set => Filters["queryCreator"] = value;
+        }
+
+        public LevelsSortOrder? sort {
+            get => (LevelsSortOrder?) Filters["sort"];
+            set => Filters["sort"] = value;
+        }
+
+        public byte? minDifficulty {
+            get => (byte?) Filters["minDifficulty"];
+            set => Filters["minDifficulty"] = value;
+        }
+
+        public byte? maxDifficulty {
+            get => (byte?) Filters["maxDifficulty"];
+            set => Filters["maxDifficulty"] = value;
+        }
+
+        public double? minBpm {
+            get => (double?) Filters["minBpm"];
+            set => Filters["minBpm"] = value;
+        }
+
+        public double? maxBpm {
+            get => (double?) Filters["maxBpm"];
+            set => Filters["maxBpm"] = value;
+        }
+
+        public int? minTiles {
+            get => (int?) Filters["minTiles"];
+            set => Filters["minTiles"] = value;
+        }
+
+        public int? maxTiles {
+            get => (int?) Filters["maxTiles"];
+            set => Filters["maxTiles"] = value;
+        }
+
+        public bool? showNotVerified {
+            get => (bool?) Filters["showNotVerified"];
+            set => Filters["showNotVerified"] = value;
+        }
+
+        public bool? showCensored {
+            get => (bool?) Filters["showCensored"];
+            set => Filters["showCensored"] = value;
+        }
+        
+        public Tag[] includeTags {
+            get => _includeTags.ToArray();
+            set => _includeTags = value.ToList();
+        }
+                
+        public Tag[] excludeTags {
+            get => _excludeTags.ToArray();
+            set => _excludeTags = value.ToList();
         }
 
         public override string ToString() {
             var query = HttpUtility.ParseQueryString(string.Empty);
-            foreach ((string key, object value) in filters) query.Add(key, $"{value}");
-            query.Add("includeTags", string.Join(", ", includeTags.Select(tag => tag.id)));
-            query.Add("excludeTags", string.Join(", ", excludeTags.Select(tag => tag.id)));
+            foreach ((string key, object value) in Filters) query.Add(key, $"{value}");
+            query.Add("includeTags", string.Join(", ", _includeTags.Select(tag => tag.id)));
+            query.Add("excludeTags", string.Join(", ", _excludeTags.Select(tag => tag.id)));
             return query.ToString();
         }
     }

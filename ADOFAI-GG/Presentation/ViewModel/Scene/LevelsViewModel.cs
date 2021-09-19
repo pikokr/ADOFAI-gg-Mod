@@ -61,13 +61,12 @@ namespace ADOFAI_GG.Presentation.ViewModel.Scene {
             if (_blockLoading) return;
             _blockLoading = true;
 
-            UniTask task = UniTask.RunOnThreadPool(async () => {
+            var task = UniTask.RunOnThreadPool(async () => {
                 // Worker thread
-                LevelFilter filter = new LevelFilter(Page.Value * PAGE_SIZE, PAGE_SIZE)
-                    .QueryTitle(SearchQuery.Value)
-                    .QueryCreator(SearchQuery.Value)
-                    .QueryArtist(SearchQuery.Value)
-                    .Sort(LevelsSortOrder.RECENT_DESC);
+                var filter = new LevelFilter(Page.Value * PAGE_SIZE, PAGE_SIZE) {
+                    query = SearchQuery.Value,
+                    sort = LevelsSortOrder.RECENT_DESC,
+                };
 
                 var tuple = await _levelRepository.RequestLevels(filter);
                 if (!tuple.HasValue) {
